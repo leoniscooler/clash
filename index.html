@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Clash Royale</title>
+    <title>Clash Royale - Random Opponent</title>
     <style>
-        /* --- GLOBAL RESET --- */
         * { box-sizing: border-box; }
         body {
             margin: 0; padding: 0;
@@ -30,7 +29,6 @@
 
         canvas { display: block; width: 100%; height: 100%; background: #4c9b56; }
 
-        /* --- LAYERS --- */
         .full-layer {
             position: absolute; top: 0; left: 0;
             width: 100%; height: 100%;
@@ -38,7 +36,6 @@
             display: flex; flex-direction: column;
         }
 
-        /* --- MENU STYLES --- */
         #menu-layer {
             background: linear-gradient(135deg, #3b607d, #2a4055);
             pointer-events: auto; z-index: 200; 
@@ -46,18 +43,30 @@
 
         .top-bar {
             width: 100%; height: 60px; background: rgba(0,0,0,0.3);
-            display: flex; justify-content: space-between; padding: 10px 20px;
-            color: white; font-weight: bold; font-size: 14px; flex-shrink: 0;
+            display: flex; justify-content: center; align-items: center; 
+            padding: 10px 20px;
+            color: white; font-weight: bold; font-size: 18px; flex-shrink: 0;
+            text-shadow: 1px 1px 0 #000;
         }
-        .resource { display: flex; align-items: center; gap: 5px; background: rgba(0,0,0,0.5); padding: 5px 10px; border-radius: 15px; }
-        .gold-icon { width: 15px; height: 15px; background: gold; border-radius: 50%; border: 1px solid #fff; box-shadow: 0 2px 2px rgba(0,0,0,0.5); }
-        .gem-icon { width: 15px; height: 15px; background: #5f5; border-radius: 50%; border: 1px solid #fff; box-shadow: 0 2px 2px rgba(0,0,0,0.5); }
+        
+        .trophy-display {
+            display: flex; align-items: center; gap: 8px; 
+            background: rgba(0,0,0,0.5); padding: 5px 15px; border-radius: 20px;
+            border: 1px solid #aaa;
+        }
+        
+        .trophy-icon {
+            width: 20px; height: 20px;
+            background: #ffd700; 
+            clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 80% 100%, 20% 100%, 0% 20%);
+            box-shadow: inset 0 -2px 5px rgba(0,0,0,0.5);
+            border: 1px solid #fff;
+        }
 
         #view-container { flex-grow: 1; position: relative; width: 100%; overflow: hidden; }
         .view { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; flex-direction: column; align-items: center; }
         .view.active { display: flex; }
 
-        /* BATTLE TAB */
         .arena-graphic {
             flex-grow: 1; width: 100%; display: flex; flex-direction: column;
             justify-content: center; align-items: center;
@@ -74,7 +83,6 @@
         }
         .battle-text { font-size: 24px; font-weight: 900; color: #5d4037; text-transform: uppercase; -webkit-text-stroke: 1px #fff; }
         
-        /* DIFFICULTY SELECTOR */
         .diff-container { display: flex; gap: 10px; margin-top: 10px; pointer-events: auto; }
         .diff-btn {
             padding: 8px 15px; border: 2px solid #fff; border-radius: 20px;
@@ -85,7 +93,6 @@
 
         @keyframes btnPulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
 
-        /* DECK TAB */
         #deck-view { background: #2a3a4a; padding: 10px; overflow-y: auto; }
         .deck-header {
             width: 100%; color: #fff; text-shadow: 1px 1px 0 #000;
@@ -94,15 +101,12 @@
             border-bottom: 1px solid #555; padding-bottom: 5px;
         }
         .deck-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; width: 100%; margin-bottom: 20px; padding: 5px; }
-
-        /* SORT DROPDOWN */
         #sort-select {
             background: #444; color: white; border: 1px solid #777;
             border-radius: 4px; padding: 2px 5px; font-size: 11px;
             font-family: inherit; cursor: pointer;
         }
 
-        /* CARDS */
         .real-card {
             width: 100%; aspect-ratio: 3/4; border-radius: 6px;
             position: relative; cursor: pointer;
@@ -111,88 +115,33 @@
         }
         .real-card.selected { transform: translateY(-5px); box-shadow: 0 0 15px #0f0; z-index: 10; }
         .real-card.active { transform: translateY(-15px); border-color: #ff0; box-shadow: 0 0 15px #ff0; }
-        
         .real-card.common { background: radial-gradient(circle at center, #9ebdd6 40%, #5e7fa0 100%); border: 3px solid #5e7fa0; border-bottom: 6px solid #4a6a8a; }
         .real-card.rare { background: radial-gradient(circle at center, #ffdfaa 40%, #d68a29 100%); border: 3px solid #dba02c; border-bottom: 6px solid #b37e1e; }
         .real-card.epic { background: radial-gradient(circle at center, #d980fa 40%, #8708c0 100%); border: 3px solid #b636d6; border-bottom: 6px solid #8616a6; }
         .real-card.legendary { background: radial-gradient(circle at center, #4ff 20%, #d5f 100%); border: 3px solid #4ff; border-bottom: 6px solid #2cc; animation: legendGlow 3s infinite; }
-        
         @keyframes legendGlow { 0% { box-shadow: 0 0 5px #4ff; } 50% { box-shadow: 0 0 15px #d5f; } 100% { box-shadow: 0 0 5px #4ff; } }
-
-        .real-card img { 
-            position: absolute; top: 5%; left: 5%; width: 90%; height: 75%; 
-            object-fit: contain; filter: drop-shadow(0px 5px 3px rgba(0,0,0,0.5)); z-index: 1; pointer-events: none; 
-        }
-
-        .elixir-drop {
-            position: absolute; top: -5px; left: -5px; width: 22px; height: 22px;
-            background: radial-gradient(circle at 35% 35%, #f5abff, #b029ff, #570080);
-            border: 1px solid #30004a; box-shadow: 2px 3px 5px rgba(0,0,0,0.6);
-            display: flex; justify-content: center; align-items: center;
-            font-family: 'Arial Black', sans-serif; font-size: 12px; color: white;
-            text-shadow: 1px 1px 0 #000; z-index: 5;
-            border-top-left-radius: 50%; border-top-right-radius: 50%;
-            border-bottom-left-radius: 50%; border-bottom-right-radius: 5%;
-            transform: rotate(45deg);
-        }
+        .real-card img { position: absolute; top: 5%; left: 5%; width: 90%; height: 75%; object-fit: contain; filter: drop-shadow(0px 5px 3px rgba(0,0,0,0.5)); z-index: 1; pointer-events: none; }
+        .elixir-drop { position: absolute; top: -5px; left: -5px; width: 22px; height: 22px; background: radial-gradient(circle at 35% 35%, #f5abff, #b029ff, #570080); border: 1px solid #30004a; box-shadow: 2px 3px 5px rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; font-family: 'Arial Black', sans-serif; font-size: 12px; color: white; text-shadow: 1px 1px 0 #000; z-index: 5; border-top-left-radius: 50%; border-top-right-radius: 50%; border-bottom-left-radius: 50%; border-bottom-right-radius: 5%; transform: rotate(45deg); }
         .elixir-drop span { transform: rotate(-45deg); margin-top: 2px; margin-left: 2px; }
+        .card-name-tag { position: relative; width: 105%; text-align: center; font-family: 'Arial Black', sans-serif; font-size: 7px; color: #fff; text-shadow: 1px 1px 0 #000; margin-bottom: 4px; z-index: 3; letter-spacing: 0.5px; }
 
-        .card-name-tag {
-            position: relative; width: 105%; text-align: center;
-            font-family: 'Arial Black', sans-serif; font-size: 7px; color: #fff;
-            text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000;
-            margin-bottom: 4px; z-index: 3; letter-spacing: 0.5px;
-        }
-
-        /* BOTTOM NAV */
-        .bottom-tabs {
-            width: 100%; height: 60px; background: #222;
-            display: flex; justify-content: space-evenly; align-items: center;
-            border-top: 2px solid #444; flex-shrink: 0; pointer-events: auto;
-        }
+        .bottom-tabs { width: 100%; height: 60px; background: #222; display: flex; justify-content: space-evenly; align-items: center; border-top: 2px solid #444; flex-shrink: 0; pointer-events: auto; }
         .tab { width: 60px; height: 40px; background: #444; border-radius: 5px; display: flex; justify-content: center; align-items: center; font-size: 24px; cursor: pointer; color: #888; }
         .tab.active { background: #ffe040; color: #530; border: 2px solid #fff; transform: translateY(-5px); }
 
-        /* GAME UI */
         #game-ui-layer { justify-content: space-between; z-index: 100; display: none; }
         #top-hud { width: 100%; height: 60px; display: flex; justify-content: center; align-items: flex-start; padding-top: 10px; position: relative; pointer-events: none;}
-        
-        #timer-box { 
-            position: absolute; left: 15px; top: 15px;
-            background: rgba(0,0,0,0.6); color: white; padding: 5px 15px; 
-            border-radius: 20px; font-weight: bold; font-size: 18px; 
-            border: 2px solid #444; display: flex; flex-direction: column; align-items: center; 
-            font-family: 'Arial Black', sans-serif; pointer-events: auto;
-        }
-
-        #game-status { font-size: 10px; color: #ffeb3b; text-transform: uppercase; margin-top: 2px; display: none; }
-        
-        #home-btn {
-            position: absolute; right: 15px; top: 15px; width: 35px; height: 35px;
-            background: #d32f2f; border: 2px solid #fff; border-radius: 8px;
-            color: white; font-size: 20px; font-weight: bold;
-            display: flex; justify-content: center; align-items: center;
-            cursor: pointer; pointer-events: auto; box-shadow: 0 4px 0 #8b0000; text-shadow: 1px 1px 0 black;
-        }
+        #timer-box { position: absolute; left: 15px; top: 15px; background: rgba(0,0,0,0.6); color: white; padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 18px; border: 2px solid #444; display: flex; flex-direction: column; align-items: center; font-family: 'Arial Black', sans-serif; pointer-events: auto; }
+        #game-status { font-size: 10px; color: #ffeb3b; text-transform: uppercase; margin-top: 2px; display: none; text-align: center; width: 100%; position: absolute; top: 60px; text-shadow: 2px 2px 0 #000; font-weight: 900; font-size: 24px; }
+        #home-btn { position: absolute; right: 15px; top: 15px; width: 35px; height: 35px; background: #d32f2f; border: 2px solid #fff; border-radius: 8px; color: white; font-size: 20px; font-weight: bold; display: flex; justify-content: center; align-items: center; cursor: pointer; pointer-events: auto; box-shadow: 0 4px 0 #8b0000; text-shadow: 1px 1px 0 black; }
         #home-btn:active { transform: translateY(4px); box-shadow: none; }
-
         #bottom-dock-container { width: 100%; display: flex; flex-direction: column; align-items: center; padding-bottom: 5px; pointer-events: auto; }
         #elixir-container { width: 92%; height: 22px; background: #111; margin-bottom: 4px; border-radius: 10px; border: 2px solid #000; position: relative; box-shadow: 0 2px 5px rgba(0,0,0,0.5); overflow: hidden; }
         #elixir-fill { height: 100%; width: 50%; background: linear-gradient(180deg, #d56aff, #7600bc); transition: width 0.1s linear; }
         #elixir-text { position: absolute; right: 10px; top: 0; color: #fff; font-weight: 900; line-height: 22px; font-family: 'Arial Black', sans-serif; }
-        #card-dock {
-            width: 100%; height: 110px;
-            background: url('data:image/svg+xml;utf8,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="%234a3020"/><path d="M0 0 L100 100 M100 0 L0 100" stroke="%233a2010" stroke-width="2"/></svg>');
-            background-size: 20px 20px; border-top: 4px solid #2a1a10;
-            display: flex; justify-content: space-evenly; align-items: center;
-        }
-
-        .game-card {
-            width: 19%; aspect-ratio: 3/4; border-radius: 6px; position: relative; cursor: grab; overflow: hidden;
-            box-shadow: 0 4px 5px rgba(0,0,0,0.5); transition: transform 0.1s; display: flex; justify-content: center; align-items: center; flex-direction: column;
-        }
+        #card-dock { width: 100%; height: 110px; background: url('data:image/svg+xml;utf8,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="%234a3020"/><path d="M0 0 L100 100 M100 0 L0 100" stroke="%233a2010" stroke-width="2"/></svg>'); background-size: 20px 20px; border-top: 4px solid #2a1a10; display: flex; justify-content: space-evenly; align-items: center; }
+        .game-card { width: 19%; aspect-ratio: 3/4; border-radius: 6px; position: relative; cursor: grab; overflow: hidden; box-shadow: 0 4px 5px rgba(0,0,0,0.5); transition: transform 0.1s; display: flex; justify-content: center; align-items: center; flex-direction: column; }
         .game-card.active { transform: translateY(-15px) scale(1.05); border-color: #ffff00; box-shadow: 0 0 10px #ffff00; }
-        .game-card.dragging { opacity: 0; }
         .game-card.disabled { filter: grayscale(100%); cursor: not-allowed; }
         .game-card.common { background: linear-gradient(135deg, #6b9ac4, #3b6a94); border: 2px solid #4a7a9a; }
         .game-card.rare   { background: linear-gradient(135deg, #f09e38, #c06e08); border: 2px solid #d07e18; }
@@ -201,8 +150,7 @@
         .game-card img { width: 85%; height: 70%; object-fit: contain; margin-top: 2px; z-index:1; pointer-events: none; }
         .game-card .cost { position: absolute; top: -5px; left: -5px; width: 22px; height: 22px; background: #d0f; color: white; border-radius: 50%; border: 2px solid white; display: flex; justify-content: center; align-items: center; font-weight: bold; font-size: 12px; z-index: 2; }
         .game-card-name { width: 100%; background: rgba(0,0,0,0.6); color: white; font-size: 8px; font-weight: bold; text-align: center; padding: 2px 0; margin-top: auto; white-space: nowrap; overflow: hidden; z-index: 2; }
-
-        #end-screen { display: none; background: rgba(0,0,0,0.85); z-index: 300; pointer-events: auto; align-items: center; justify-content: center; }
+        #end-screen { display: none; background: rgba(0,0,0,0.85); z-index: 300; pointer-events: auto; align-items: center; justify-content: center; flex-direction: column; }
     </style>
 </head>
 <body>
@@ -210,10 +158,11 @@
 <div id="game-wrapper">
     <div id="menu-layer" class="full-layer">
         <div class="top-bar">
-            <div class="resource"><div class="gold-icon"></div> 1250</div>
-            <div class="resource"><div class="gem-icon"></div> 50</div>
+            <div class="trophy-display">
+                <div class="trophy-icon"></div>
+                <span id="trophy-count">0</span>
+            </div>
         </div>
-        
         <div id="view-container">
             <div id="battle-view" class="view active">
                 <div class="arena-graphic">
@@ -232,7 +181,7 @@
             <div id="deck-view" class="view">
                 <div class="deck-header">
                     <span>Battle Deck</span>
-                    <span id="avg-elixir" style="font-size: 10px; font-weight: normal; color: #ccc;">Avg Elixir: 3.5</span>
+                    <span id="avg-elixir" style="font-size: 10px; font-weight: normal; color: #ccc;">Avg: 3.5</span>
                 </div>
                 <div id="deck-grid" class="deck-grid"></div>
                 <div style="height: 2px; background: #555; width: 100%; margin: 10px 0;"></div>
@@ -247,41 +196,30 @@
                 <div id="collection-grid" class="deck-grid"></div>
             </div>
         </div>
-
         <div class="bottom-tabs">
             <div class="tab" onclick="switchTab('deck', this)">🎴</div>
             <div class="tab active" onclick="switchTab('battle', this)">⚔️</div>
         </div>
     </div>
-
     <canvas id="gameCanvas"></canvas>
-    
     <div id="game-ui-layer" class="full-layer">
         <div id="top-hud">
-            <div id="timer-box">
-                <span id="time-display">3:00</span>
-                <span id="game-status"></span>
-            </div>
+            <div id="timer-box"><span id="time-display">3:00</span><span id="game-status"></span></div>
             <div id="home-btn" onclick="returnToMenu()">⌂</div>
         </div>
-        
         <div id="bottom-dock-container">
-            <div id="elixir-container">
-                <div id="elixir-fill"></div>
-                <div id="elixir-text">5</div>
-            </div>
+            <div id="elixir-container"><div id="elixir-fill"></div><div id="elixir-text">5</div></div>
             <div id="card-dock"></div>
         </div>
     </div>
-    
     <div id="end-screen" class="full-layer">
-        <h1 id="end-msg" style="font-size: 40px; color: #ffcc00; -webkit-text-stroke: 2px black;">WINNER</h1>
+        <h1 id="end-msg" style="font-size: 40px; color: #ffcc00; -webkit-text-stroke: 2px black; margin:10px;">WINNER</h1>
+        <h2 id="trophy-change" style="font-size: 24px; color: #fff; margin-bottom:20px;">+30 🏆</h2>
         <button onclick="returnToMenu()" style="padding: 15px 30px; background: #3c9; border:none; border-radius:5px; color:white; font-weight:bold; font-size:18px; cursor:pointer;">OK</button>
     </div>
 </div>
 
 <script>
-// --- ASSETS ---
 const SPRITES = {};
 function createAsset(name, svgContent) {
     const header = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">`;
@@ -291,7 +229,7 @@ function createAsset(name, svgContent) {
     SPRITES[name] = img;
 }
 
-// GRAPHICS
+// ASSETS
 createAsset('knight', `<rect x="22" y="35" width="56" height="45" rx="8" fill="#9aa" stroke="#222" stroke-width="3"/><circle cx="50" cy="38" r="22" fill="#cfcfcf" stroke="#222" stroke-width="3"/><rect x="45" y="10" width="10" height="20" fill="#c00"/><circle cx="42" cy="36" r="3" fill="#000"/><circle cx="58" cy="36" r="3" fill="#000"/><path d="M40 45 Q50 50 60 45" stroke="#000" stroke-width="2" fill="none"/>`);
 createAsset('archer', `<circle cx="50" cy="40" r="22" fill="#fec" stroke="#222" stroke-width="3"/><path d="M18 42 Q50 5 82 42 L70 85 Q50 95 30 85 Z" fill="#f06"/><circle cx="42" cy="38" r="3" fill="#000"/><circle cx="58" cy="38" r="3" fill="#000"/><path d="M10 55 Q50 100 90 55" fill="none" stroke="#630" stroke-width="4"/><line x1="12" y1="55" x2="88" y2="55" stroke="#fff" stroke-width="1"/>`);
 createAsset('giant', `<rect x="18" y="40" width="64" height="45" rx="10" fill="#b87" stroke="#222" stroke-width="3"/><circle cx="50" cy="30" r="20" fill="#fca" stroke="#222" stroke-width="3"/><circle cx="44" cy="28" r="3" fill="#000"/><circle cx="56" cy="28" r="3" fill="#000"/><path d="M42 36 Q50 42 58 36" stroke="#000" stroke-width="2" fill="none"/>`);
@@ -317,6 +255,7 @@ createAsset('witch', `<circle cx="50" cy="35" r="20" fill="#d9f"/><path d="M20 8
 createAsset('megaknight', `<rect x="20" y="20" width="60" height="60" rx="10" fill="#333"/><circle cx="50" cy="35" r="15" fill="#222" stroke="#000"/><rect x="15" y="45" width="20" height="40" fill="#222"/><rect x="65" y="45" width="20" height="40" fill="#222"/>`);
 createAsset('golem', `<path d="M30 80 L50 20 L70 80" fill="#876"/><circle cx="50" cy="30" r="15" fill="#a98"/><rect x="20" y="40" width="20" height="40" fill="#654"/><rect x="60" y="40" width="20" height="40" fill="#654"/>`);
 createAsset('threem', `<circle cx="30" cy="40" r="12" fill="#fec"/><circle cx="50" cy="60" r="12" fill="#fec"/><circle cx="70" cy="40" r="12" fill="#fec"/>`);
+createAsset('leon', `<rect x="30" y="30" width="40" height="50" fill="#4a4"/><circle cx="50" cy="30" r="15" fill="#dca"/><rect x="20" y="40" width="10" height="30" fill="#dca"/><rect x="70" y="40" width="10" height="30" fill="#dca"/><line x1="30" y1="80" x2="30" y2="95" stroke="#333" stroke-width="5"/><line x1="70" y1="80" x2="70" y2="95" stroke="#333" stroke-width="5"/>`);
 
 const CANVAS = document.getElementById('gameCanvas');
 const CTX = CANVAS.getContext('2d');
@@ -326,53 +265,58 @@ const TILE = 30;
 const CONSTANTS = {
     LANE_LEFT: 4 * TILE, LANE_RIGHT: 14 * TILE, RIVER_Y: 400, BRIDGE_Y: 400, BASE_DEPLOY: 440,
     DOCK_Y: 820, POCKET_Y: 180, CENTER_X: 540 / 2, TILE_SIZE: TILE,
-    GAME_DURATION: 180, DOUBLE_ELIXIR_TIME: 60, OVERTIME_DURATION: 120 
+    GAME_DURATION: 180, 
 };
 
-// 24 CARDS
+// 25 CARDS (Corrected Stats)
 const CARDS = {
-    knight: { name: "Knight", cost: 3, rarity: 'common', hp: 1766, dmg: 202, spd: 50, hit: 1.2, count: 1, type: 'melee', targetPref: 'any', sprite: 'knight', rng: 1.2 * TILE, targetsAir: false },
-    archer: { name: "Archers", cost: 3, rarity: 'common', hp: 304, dmg: 107, spd: 55, hit: 0.9, count: 2, type: 'range', targetPref: 'any', sprite: 'archer', rng: 5.0 * TILE, targetsAir: true },
-    giant:  { name: "Giant", cost: 5, rarity: 'rare', hp: 4091, dmg: 254, spd: 35, hit: 1.5, count: 1, type: 'tank', targetPref: 'building', sprite: 'giant', rng: 1.2 * TILE, targetsAir: false },
-    pekka:  { name: "Pekka", cost: 7, rarity: 'epic', hp: 3760, dmg: 816, spd: 35, hit: 1.8, count: 1, type: 'melee', targetPref: 'any', sprite: 'pekka', rng: 1.6 * TILE, targetsAir: false },
-    minipekka: { name: "Mini Pekka", cost: 4, rarity: 'rare', hp: 1361, dmg: 720, spd: 80, hit: 1.6, count: 1, type: 'melee', targetPref: 'any', sprite: 'minipekka', rng: 1.2 * TILE, targetsAir: false },
-    musketeer: { name: "Musketeer", cost: 4, rarity: 'rare', hp: 720, dmg: 218, spd: 55, hit: 1.0, count: 1, type: 'range', targetPref: 'any', sprite: 'musketeer', rng: 6.0 * TILE, targetsAir: true },
-    goblins:   { name: "Goblins", cost: 2, rarity: 'common', hp: 202, dmg: 120, spd: 100, hit: 1.1, count: 3, type: 'melee', targetPref: 'any', sprite: 'goblins', rng: 0.8 * TILE, targetsAir: false },
-    dragon:    { name: "Baby Dragon", cost: 4, rarity: 'epic', hp: 1152, dmg: 160, spd: 75, hit: 1.5, count: 1, type: 'range', targetPref: 'any', sprite: 'dragon', rng: 3.5 * TILE, flying: true, targetsAir: true, splash: true, splashRadius: 2.5*TILE },
-    wizard:    { name: "Wizard", cost: 5, rarity: 'rare', hp: 720, dmg: 281, spd: 55, hit: 1.4, count: 1, type: 'range', targetPref: 'any', sprite: 'wizard', rng: 5.5 * TILE, targetsAir: true, splash: true, splashRadius: 2.0*TILE },
-    skeletons: { name: "Skeletons", cost: 1, rarity: 'common', hp: 81, dmg: 81, spd: 80, hit: 1.0, count: 3, type: 'melee', targetPref: 'any', sprite: 'skeletons', rng: 0.5 * TILE, targetsAir: false },
-    valkyrie: { name: "Valkyrie", cost: 4, rarity: 'rare', hp: 1908, dmg: 267, spd: 55, hit: 1.5, count: 1, type: 'melee', targetPref: 'any', sprite: 'valkyrie', rng: 1.5 * TILE, targetsAir: false, splash: true, splashRadius: 2.0*TILE },
-    hog: { name: "Hog Rider", cost: 4, rarity: 'rare', hp: 1696, dmg: 318, spd: 100, hit: 1.6, count: 1, type: 'melee', targetPref: 'building', sprite: 'hog', rng: 1.2 * TILE, targetsAir: false },
-    balloon: { name: "Balloon", cost: 5, rarity: 'epic', hp: 1680, dmg: 960, spd: 55, hit: 3.0, count: 1, type: 'melee', targetPref: 'building', sprite: 'balloon', rng: 0.5 * TILE, flying: true, targetsAir: false },
-    prince: { name: "Prince", cost: 5, rarity: 'epic', hp: 2000, dmg: 392, spd: 55, hit: 1.4, count: 1, type: 'melee', targetPref: 'any', sprite: 'prince', rng: 1.6 * TILE, targetsAir: false, charge: true },
-    darkprince: { name: "Dark Prince", cost: 4, rarity: 'epic', hp: 1300, dmg: 240, spd: 55, hit: 1.3, count: 1, type: 'melee', targetPref: 'any', sprite: 'darkprince', rng: 1.2 * TILE, targetsAir: false, splash: true, splashRadius: 1.5 * TILE, charge: true },
-    bomber: { name: "Bomber", cost: 2, rarity: 'common', hp: 398, dmg: 222, spd: 55, hit: 1.8, count: 1, type: 'range', targetPref: 'any', sprite: 'bomber', rng: 4.5 * TILE, targetsAir: false, splash: true, splashRadius: 2.0*TILE },
-    icewizard: { name: "Ice Wizard", cost: 3, rarity: 'epic', hp: 688, dmg: 90, spd: 50, hit: 1.7, count: 1, type: 'range', targetPref: 'any', sprite: 'icewizard', rng: 5.5 * TILE, targetsAir: true, splash: true, splashRadius: 1.5*TILE, slows: true },
-    firecracker: { name: "Firecracker", cost: 3, rarity: 'common', hp: 304, dmg: 150, spd: 60, hit: 3.0, count: 1, type: 'range', targetPref: 'any', sprite: 'firecracker', rng: 6.0 * TILE, targetsAir: true, shrapnel: true },
-    barbarians: { name: "Barbarians", cost: 5, rarity: 'common', hp: 670, dmg: 190, spd: 50, hit: 1.3, count: 5, type: 'melee', targetPref: 'any', sprite: 'barbarians', rng: 0.8 * TILE, targetsAir: false },
-    minions: { name: "Minions", cost: 3, rarity: 'common', hp: 230, dmg: 102, spd: 80, hit: 1.0, count: 3, type: 'melee', targetPref: 'any', sprite: 'minions', rng: 2.0 * TILE, flying: true, targetsAir: true },
-    witch: { name: "Witch", cost: 5, rarity: 'epic', hp: 838, dmg: 134, spd: 50, hit: 0.7, count: 1, type: 'range', targetPref: 'any', sprite: 'witch', rng: 5.0 * TILE, targetsAir: true, spawner: true, splash: true, splashRadius: 1.5*TILE },
-    megaknight: { name: "Mega Knight", cost: 7, rarity: 'legendary', hp: 3993, dmg: 268, spd: 50, hit: 1.7, count: 1, type: 'melee', targetPref: 'any', sprite: 'megaknight', rng: 1.2 * TILE, targetsAir: false, splash: true, splashRadius: 2.5*TILE, jump: true },
-    golem: { name: "Golem", cost: 8, rarity: 'epic', hp: 5120, dmg: 312, spd: 30, hit: 2.5, count: 1, type: 'tank', targetPref: 'building', sprite: 'golem', rng: 1.0 * TILE, targetsAir: false, deathSpawn: true },
-    threem: { name: "3 Musketeers", cost: 9, rarity: 'rare', hp: 720, dmg: 218, spd: 55, hit: 1.0, count: 3, type: 'range', targetPref: 'any', sprite: 'threem', rng: 6.0 * TILE, targetsAir: true }
+    knight: { name: "Knight", cost: 3, rarity: 'common', hp: 1766, dmg: 202, spd: 50, hit: 1.2, count: 1, type: 'melee', targetPref: 'any', sprite: 'knight', rng: 1.2 * TILE, sight: 5.5*TILE, targetsAir: false },
+    archer: { name: "Archers", cost: 3, rarity: 'common', hp: 304, dmg: 107, spd: 55, hit: 0.9, count: 2, type: 'range', targetPref: 'any', sprite: 'archer', rng: 5.0 * TILE, sight: 5.5*TILE, targetsAir: true },
+    giant:  { name: "Giant", cost: 5, rarity: 'rare', hp: 4091, dmg: 254, spd: 35, hit: 1.5, count: 1, type: 'tank', targetPref: 'building', sprite: 'giant', rng: 1.2 * TILE, sight: 7.5*TILE, targetsAir: false },
+    pekka:  { name: "Pekka", cost: 7, rarity: 'epic', hp: 3760, dmg: 816, spd: 35, hit: 1.8, count: 1, type: 'melee', targetPref: 'any', sprite: 'pekka', rng: 1.6 * TILE, sight: 5.0*TILE, targetsAir: false },
+    minipekka: { name: "Mini Pekka", cost: 4, rarity: 'rare', hp: 1361, dmg: 720, spd: 80, hit: 1.6, count: 1, type: 'melee', targetPref: 'any', sprite: 'minipekka', rng: 1.2 * TILE, sight: 5.5*TILE, targetsAir: false },
+    musketeer: { name: "Musketeer", cost: 4, rarity: 'rare', hp: 720, dmg: 218, spd: 55, hit: 1.0, count: 1, type: 'range', targetPref: 'any', sprite: 'musketeer', rng: 6.0 * TILE, sight: 6.0*TILE, targetsAir: true },
+    goblins:   { name: "Goblins", cost: 2, rarity: 'common', hp: 202, dmg: 120, spd: 100, hit: 1.1, count: 3, type: 'melee', targetPref: 'any', sprite: 'goblins', rng: 0.8 * TILE, sight: 5.5*TILE, targetsAir: false },
+    dragon:    { name: "Baby Dragon", cost: 4, rarity: 'epic', hp: 1152, dmg: 160, spd: 75, hit: 1.5, count: 1, type: 'range', targetPref: 'any', sprite: 'dragon', rng: 3.5 * TILE, sight: 5.5*TILE, flying: true, targetsAir: true, splash: true, splashRadius: 2.5*TILE },
+    wizard:    { name: "Wizard", cost: 5, rarity: 'rare', hp: 720, dmg: 281, spd: 55, hit: 1.4, count: 1, type: 'range', targetPref: 'any', sprite: 'wizard', rng: 5.5 * TILE, sight: 5.5*TILE, targetsAir: true, splash: true, splashRadius: 2.0*TILE },
+    skeletons: { name: "Skeletons", cost: 1, rarity: 'common', hp: 81, dmg: 81, spd: 80, hit: 1.0, count: 3, type: 'melee', targetPref: 'any', sprite: 'skeletons', rng: 0.5 * TILE, sight: 5.5*TILE, targetsAir: false },
+    valkyrie: { name: "Valkyrie", cost: 4, rarity: 'rare', hp: 1908, dmg: 267, spd: 55, hit: 1.5, count: 1, type: 'melee', targetPref: 'any', sprite: 'valkyrie', rng: 1.5 * TILE, sight: 5.5*TILE, targetsAir: false, splash: true, splashRadius: 2.0*TILE },
+    hog: { name: "Hog Rider", cost: 4, rarity: 'rare', hp: 1696, dmg: 318, spd: 100, hit: 1.6, count: 1, type: 'melee', targetPref: 'building', sprite: 'hog', rng: 1.2 * TILE, sight: 9.5*TILE, targetsAir: false },
+    balloon: { name: "Balloon", cost: 5, rarity: 'epic', hp: 1680, dmg: 960, spd: 55, hit: 3.0, count: 1, type: 'melee', targetPref: 'building', sprite: 'balloon', rng: 0.5 * TILE, sight: 7.7*TILE, flying: true, targetsAir: false },
+    prince: { name: "Prince", cost: 5, rarity: 'epic', hp: 2000, dmg: 392, spd: 55, hit: 1.4, count: 1, type: 'melee', targetPref: 'any', sprite: 'prince', rng: 1.6 * TILE, sight: 5.5*TILE, targetsAir: false, charge: true },
+    darkprince: { name: "Dark Prince", cost: 4, rarity: 'epic', hp: 1300, dmg: 240, spd: 55, hit: 1.3, count: 1, type: 'melee', targetPref: 'any', sprite: 'darkprince', rng: 1.2 * TILE, sight: 5.5*TILE, targetsAir: false, splash: true, splashRadius: 1.5 * TILE, charge: true },
+    bomber: { name: "Bomber", cost: 2, rarity: 'common', hp: 398, dmg: 222, spd: 55, hit: 1.8, count: 1, type: 'range', targetPref: 'any', sprite: 'bomber', rng: 4.5 * TILE, sight: 5.5*TILE, targetsAir: false, splash: true, splashRadius: 2.0*TILE },
+    icewizard: { name: "Ice Wizard", cost: 3, rarity: 'legendary', hp: 688, dmg: 90, spd: 50, hit: 1.7, count: 1, type: 'range', targetPref: 'any', sprite: 'icewizard', rng: 5.5 * TILE, sight: 5.5*TILE, targetsAir: true, splash: true, splashRadius: 1.5 * TILE, slows: true },
+    firecracker: { name: "Firecracker", cost: 3, rarity: 'common', hp: 304, dmg: 150, spd: 60, hit: 3.0, count: 1, type: 'range', targetPref: 'any', sprite: 'firecracker', rng: 6.0 * TILE, sight: 8.5*TILE, targetsAir: true, shrapnel: true },
+    barbarians: { name: "Barbarians", cost: 5, rarity: 'common', hp: 670, dmg: 190, spd: 50, hit: 1.3, count: 5, type: 'melee', targetPref: 'any', sprite: 'barbarians', rng: 0.8 * TILE, sight: 5.5*TILE, targetsAir: false },
+    minions: { name: "Minions", cost: 3, rarity: 'common', hp: 230, dmg: 102, spd: 80, hit: 1.0, count: 3, type: 'melee', targetPref: 'any', sprite: 'minions', rng: 2.0 * TILE, sight: 5.5*TILE, flying: true, targetsAir: true },
+    witch: { name: "Witch", cost: 5, rarity: 'epic', hp: 838, dmg: 134, spd: 50, hit: 0.7, count: 1, type: 'range', targetPref: 'any', sprite: 'witch', rng: 5.0 * TILE, sight: 5.5*TILE, targetsAir: true, spawner: true, splash: true, splashRadius: 1.5*TILE },
+    megaknight: { name: "Mega Knight", cost: 7, rarity: 'legendary', hp: 3993, dmg: 268, spd: 50, hit: 1.7, count: 1, type: 'melee', targetPref: 'any', sprite: 'megaknight', rng: 1.2 * TILE, sight: 5.5*TILE, targetsAir: false, splash: true, splashRadius: 2.5*TILE, jump: true },
+    golem: { name: "Golem", cost: 8, rarity: 'epic', hp: 5120, dmg: 312, spd: 30, hit: 2.5, count: 1, type: 'tank', targetPref: 'building', sprite: 'golem', rng: 1.0 * TILE, sight: 7.0*TILE, targetsAir: false, deathSpawn: true },
+    threem: { name: "3 Musketeers", cost: 9, rarity: 'rare', hp: 720, dmg: 218, spd: 55, hit: 1.0, count: 3, type: 'range', targetPref: 'any', sprite: 'threem', rng: 6.0 * TILE, sight: 6.0*TILE, targetsAir: true },
+    leon: { name: "Leon", cost: 5, rarity: 'legendary', hp: 1200, dmg: 150, spd: 60, hit: 1.2, count: 1, type: 'melee', targetPref: 'any', sprite: 'leon', rng: 1.2 * TILE, sight: 5.5*TILE, targetsAir: false }
 };
 
-// --- STATE & LOCAL STORAGE ---
+// --- STATE ---
 let userDeck = ['knight', 'archer', 'giant', 'pekka', 'minipekka', 'musketeer', 'goblins', 'dragon'];
+let trophies = 0;
 let allKeys = Object.keys(CARDS);
 let collection = allKeys.filter(k => !userDeck.includes(k)); 
 
-// LOAD DATA
-if (localStorage.getItem('clashDeck')) {
+// AUTO-FIX SAVE DATA
+if (localStorage.getItem('clashData')) {
     try {
-        let savedDeck = JSON.parse(localStorage.getItem('clashDeck'));
-        // Validate deck
-        if (Array.isArray(savedDeck) && savedDeck.length === 8 && savedDeck.every(k => CARDS[k])) {
-            userDeck = savedDeck;
-            // Recalculate collection based on saved deck
+        let data = JSON.parse(localStorage.getItem('clashData'));
+        if (data.deck && Array.isArray(data.deck)) {
+            let validDeck = data.deck.filter(k => CARDS[k]);
+            while(validDeck.length < 8) validDeck.push('knight');
+            userDeck = validDeck.slice(0, 8); 
             collection = allKeys.filter(k => !userDeck.includes(k));
         }
-    } catch(e) { console.log("Save load error", e); }
+        trophies = data.trophies || 0;
+    } catch(e) { 
+        localStorage.removeItem('clashData');
+    }
 }
 
 let selectedDeckSlot = -1; let selectedCollectionSlot = -1;
@@ -382,11 +326,11 @@ let currentDifficulty = 'medium';
 const DIFFICULTY_SETTINGS = {
     easy: { elixirMult: 0.7, react: 4.0 },
     medium: { elixirMult: 1.0, react: 2.5 },
-    hard: { elixirMult: 1.4, react: 1.0 }
+    hard: { elixirMult: 2.0, react: 0.8 } 
 };
 
 function saveData() {
-    localStorage.setItem('clashDeck', JSON.stringify(userDeck));
+    localStorage.setItem('clashData', JSON.stringify({ deck: userDeck, trophies: trophies }));
 }
 
 function resizeGame() {
@@ -402,7 +346,7 @@ function resizeGame() {
     CANVAS.width = 540; CANVAS.height = 960;
 }
 window.addEventListener('resize', resizeGame);
-window.onload = () => { resizeGame(); sortAndRender(); updateAvgElixir(); };
+window.onload = () => { resizeGame(); sortAndRender(); updateAvgElixir(); updateMenuUI(); };
 
 function setDifficulty(level) {
     currentDifficulty = level;
@@ -415,6 +359,10 @@ function updateAvgElixir() {
     document.getElementById('avg-elixir').innerText = "Avg: " + (total/8).toFixed(1);
 }
 
+function updateMenuUI() {
+    document.getElementById('trophy-count').innerText = trophies;
+}
+
 function switchTab(name, el) {
     document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -425,7 +373,6 @@ function switchTab(name, el) {
 
 function sortAndRender() {
     let criteria = document.getElementById('sort-select').value;
-    
     collection.sort((a,b) => {
         let cA = CARDS[a], cB = CARDS[b];
         if (criteria === 'elixir') return cA.cost - cB.cost;
@@ -436,7 +383,6 @@ function sortAndRender() {
         }
         return 0;
     });
-    
     renderDeckMenu();
 }
 
@@ -444,19 +390,21 @@ function renderDeckMenu() {
     const deckGrid = document.getElementById('deck-grid');
     const colGrid = document.getElementById('collection-grid');
     deckGrid.innerHTML = ''; colGrid.innerHTML = '';
-    
     userDeck.forEach((key, i) => {
-        let div = createMenuCard(key);
-        if(selectedDeckSlot === i) div.classList.add('selected');
-        div.onclick = () => handleDeckClick(i, 'deck');
-        deckGrid.appendChild(div);
+        if(CARDS[key]) {
+            let div = createMenuCard(key);
+            if(selectedDeckSlot === i) div.classList.add('selected');
+            div.onclick = () => handleDeckClick(i, 'deck');
+            deckGrid.appendChild(div);
+        }
     });
-
     collection.forEach((key, i) => {
-        let div = createMenuCard(key);
-        if(selectedCollectionSlot === i) div.classList.add('selected');
-        div.onclick = () => handleDeckClick(i, 'collection');
-        colGrid.appendChild(div);
+        if(CARDS[key]) {
+            let div = createMenuCard(key);
+            if(selectedCollectionSlot === i) div.classList.add('selected');
+            div.onclick = () => handleDeckClick(i, 'collection');
+            colGrid.appendChild(div);
+        }
     });
 }
 
@@ -464,11 +412,7 @@ function createMenuCard(key) {
     let s = CARDS[key];
     let div = document.createElement('div');
     div.className = `real-card ${s.rarity}`;
-    div.innerHTML = `
-        <div class="elixir-drop"><span>${s.cost}</span></div>
-        <img src="${SPRITES[s.sprite].src}">
-        <div class="card-name-tag">${s.name}</div>
-    `;
+    div.innerHTML = `<div class="elixir-drop"><span>${s.cost}</span></div><img src="${SPRITES[s.sprite].src}"><div class="card-name-tag">${s.name}</div>`;
     return div;
 }
 
@@ -476,14 +420,12 @@ function handleDeckClick(idx, type) {
     if (type === 'deck') {
         if (selectedCollectionSlot !== -1) {
             let temp = userDeck[idx]; userDeck[idx] = collection[selectedCollectionSlot]; collection[selectedCollectionSlot] = temp;
-            selectedCollectionSlot = -1; selectedDeckSlot = -1; 
-            saveData(); updateAvgElixir(); sortAndRender();
+            selectedCollectionSlot = -1; selectedDeckSlot = -1; saveData(); updateAvgElixir(); sortAndRender();
         } else if (selectedDeckSlot === idx) selectedDeckSlot = -1; else selectedDeckSlot = idx;
     } else {
         if (selectedDeckSlot !== -1) {
             let temp = collection[idx]; collection[idx] = userDeck[selectedDeckSlot]; userDeck[selectedDeckSlot] = temp;
-            selectedDeckSlot = -1; selectedCollectionSlot = -1; 
-            saveData(); updateAvgElixir(); sortAndRender();
+            selectedDeckSlot = -1; selectedCollectionSlot = -1; saveData(); updateAvgElixir(); sortAndRender();
         } else if (selectedCollectionSlot === idx) selectedCollectionSlot = -1; else selectedCollectionSlot = idx;
     }
     renderDeckMenu();
@@ -499,6 +441,7 @@ function startGame() {
 
 function returnToMenu() {
     G = null;
+    updateMenuUI();
     document.getElementById('end-screen').style.display = 'none';
     document.getElementById('game-ui-layer').style.display = 'none';
     document.getElementById('menu-layer').style.display = 'flex';
@@ -513,14 +456,21 @@ class Game {
         
         this.diffSettings = DIFFICULTY_SETTINGS[diff];
         this.botNextMove = this.diffSettings.react; 
-
         this.timeLeft = CONSTANTS.GAME_DURATION;
         this.isOvertime = false; this.doubleElixir = false; this.gameOver = false;
         
         this.myDeck = [...deck];
         this.hand = this.myDeck.slice(0, 4);
         this.queue = this.myDeck.slice(4);
-        this.botDeck = Object.keys(CARDS); 
+        
+        // Random Bot Deck
+        let allCardKeys = Object.keys(CARDS);
+        for (let i = allCardKeys.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [allCardKeys[i], allCardKeys[j]] = [allCardKeys[j], allCardKeys[i]];
+        }
+        this.botDeck = allCardKeys.slice(0, 8);
+        
         this.input = { cardIdx: -1, isDragging: false, x: 0, y: 0, valid: false };
 
         this.spawnTower('blue', CONSTANTS.LANE_LEFT, 610, 2536, false, 'left');
@@ -537,7 +487,7 @@ class Game {
         let t = new Entity(team, 'tower', x, y);
         t.maxHp = hp; t.hp = hp; t.dmg = 90; t.range = 7.5 * CONSTANTS.TILE_SIZE; 
         t.spd = 0; t.hitSpeed = 0.8; t.radius = 35; t.isBuilding = true; t.isKing = isKing; t.lane = lane; t.active = !isKing; 
-        t.canTargetAir = true; 
+        t.canTargetAir = true; t.sightRange = 7.0*TILE; 
         this.entities.push(t);
     }
 
@@ -623,6 +573,7 @@ class Game {
         entity.jump = stats.jump || false;
         entity.spawner = stats.spawner || false;
         entity.deathSpawn = stats.deathSpawn || false;
+        entity.sightRange = stats.sight || 5.5 * TILE;
     }
 
     update() {
@@ -667,13 +618,11 @@ class Game {
         this.entities.sort((a,b) => a.y - b.y);
         this.entities.forEach(e => e.update(this));
         
-        // Remove dead
         let dead = this.entities.filter(e => e.hp <= 0);
         dead.forEach(e => {
             if(e.isBuilding && e.isKing) this.end(e.team === 'red' ? "BLUE WINS!" : "RED WINS!");
             else if(e.isBuilding && this.isOvertime) this.end(e.team === 'red' ? "BLUE WINS!" : "RED WINS!");
 
-            // GOLEM DEATH
             if(e.deathSpawn && e.sprite === 'golem') {
                  for(let i=0; i<2; i++) {
                      let g = new Entity(e.team, 'golemite', e.x + (i*20-10), e.y);
@@ -701,8 +650,14 @@ class Game {
     end(res) {
         if(this.gameOver) return;
         this.gameOver = true;
+        let msg = res;
+        let change = 0;
+        if (res === "BLUE WINS!") { trophies += 30; change = 30; }
+        else if (res === "RED WINS!") { trophies = Math.max(0, trophies-30); change = -30; }
+        saveData();
         document.getElementById('end-screen').style.display = 'flex';
-        document.getElementById('end-msg').innerText = res;
+        document.getElementById('end-msg').innerText = msg;
+        document.getElementById('trophy-change').innerText = (change > 0 ? "+" : "") + change + " 🏆";
     }
 
     draw() {
@@ -736,8 +691,11 @@ class Game {
                 CTX.fillStyle = this.input.valid ? 'rgba(255, 255, 255, 0.2)' : 'rgba(255, 0, 0, 0.2)';
                 CTX.fill(); CTX.strokeStyle = this.input.valid ? '#fff' : '#f00'; CTX.lineWidth = 2; CTX.stroke();
                 CTX.save(); CTX.globalAlpha = 0.7;
-                let img = SPRITES[s.sprite]; let w = 50, h = 50; 
-                CTX.drawImage(img, this.input.x - w/2, this.input.y - h/2, w, h);
+                let img = SPRITES[s.sprite]; 
+                if (img) {
+                    let w = 50, h = 50; 
+                    CTX.drawImage(img, this.input.x - w/2, this.input.y - h/2, w, h);
+                }
                 CTX.restore();
             }
         }
@@ -753,7 +711,7 @@ class Entity {
         this.active = true; this.isFlying = false;
         
         // Mechanics
-        this.canTargetAir = true; 
+        this.canTargetAir = true; this.sightRange = 5.5 * TILE;
         this.splash = false; this.splashRadius = 0;
         this.slows = false; this.slowTimer = 0;
         this.shrapnel = false;
@@ -761,11 +719,50 @@ class Entity {
         this.jump = false; this.jumpTimer = 0; this.isJumping = false; this.jumpTarget = null;
         this.spawner = false; this.spawnTimer = 0;
         this.deathSpawn = false;
+        // LEON ABILITY
+        this.throwCooldown = 0;
+        this.isThrown = false; 
+        this.throwStartX = 0; this.throwStartY = 0;
+        this.throwDestX = 0; this.throwDestY = 0;
+        this.throwProgress = 0;
     }
 
     update(game) {
         this.slowTimer -= game.dt;
         this.retargetTimer -= game.dt;
+        this.throwCooldown -= game.dt;
+
+        // LEON THROW LOGIC - ON ATTACK
+        if (this.sprite === 'leon' && this.throwCooldown <= 0 && this.target && !this.target.isBuilding && !this.target.isFlying) {
+             let dist = Math.hypot(this.target.x - this.x, this.target.y - this.y);
+             if (dist <= (this.range + this.target.radius)) {
+                 this.target.isThrown = true;
+                 this.target.throwStartY = this.target.y;
+                 this.target.throwStartX = this.target.x;
+                 let otherLane = this.target.x < CONSTANTS.CENTER_X ? CONSTANTS.LANE_RIGHT : CONSTANTS.LANE_LEFT;
+                 this.target.throwDestX = otherLane;
+                 this.target.throwDestY = this.target.y; 
+                 this.target.throwProgress = 0;
+                 this.throwCooldown = 4.0;
+                 this.lastAttack = game.t;
+                 return; // Consumes attack
+             }
+        }
+
+        // THROWN UNIT LOGIC
+        if (this.isThrown) {
+            this.throwProgress += game.dt * 1.0; 
+            if (this.throwProgress >= 1) {
+                this.isThrown = false;
+                this.x = this.throwDestX;
+                this.y = this.throwDestY;
+            } else {
+                this.x = this.throwStartX + (this.throwDestX - this.throwStartX) * this.throwProgress;
+                this.y = this.throwStartY + (this.throwDestY - this.throwStartY) * this.throwProgress;
+            }
+            return; 
+        }
+
         if(this.spawner) {
             this.spawnTimer += game.dt;
             if(this.spawnTimer > 7.0) {
@@ -784,6 +781,7 @@ class Entity {
         let currentSpd = this.slowTimer > 0 ? this.spd * 0.5 : this.spd;
         if (this.isCharging) currentSpd *= 2.0;
 
+        // JUMP LOGIC
         if (this.jump && !this.isJumping) {
             let targets = game.entities.filter(e => e.team !== this.team && !e.isFlying); 
             for(let t of targets) {
@@ -815,9 +813,12 @@ class Entity {
             return; 
         }
 
-        if (!this.target || this.target.hp <= 0 || (this.retargetTimer < 0 && this.target.isBuilding && this.targetPref === 'any')) {
+        if (!this.target || this.target.hp <= 0 || (this.retargetTimer < 0)) {
             this.target = this.findBestTarget(game.entities);
             this.retargetTimer = 0.5;
+        } else {
+            let d = Math.hypot(this.target.x - this.x, this.target.y - this.y);
+            if (d > this.sightRange) this.target = null;
         }
 
         if(this.target) {
@@ -867,7 +868,12 @@ class Entity {
                             let distLeft = Math.abs(this.x - CONSTANTS.LANE_LEFT);
                             let distRight = Math.abs(this.x - CONSTANTS.LANE_RIGHT);
                             let bridgeX = distLeft < distRight ? CONSTANTS.LANE_LEFT : CONSTANTS.LANE_RIGHT;
-                            if (Math.abs(this.x - bridgeX) > 10) {
+                            
+                            if (Math.abs(this.x - bridgeX) > 15) {
+                                moveTarget.x = bridgeX;
+                                // WALK ON BANK
+                                moveTarget.y = this.y > riverY ? riverY + 50 : riverY - 50; 
+                            } else {
                                 moveTarget.x = bridgeX;
                                 moveTarget.y = CONSTANTS.BRIDGE_Y; 
                             }
@@ -882,10 +888,25 @@ class Entity {
                 }
             }
         } else {
+            // MOVEMENT LOGIC
             if(!this.isBuilding) {
                  let forwardY = this.team === 'blue' ? 0 : 960;
                  if (Math.abs(this.y - forwardY) > 10) {
-                     this.y += (this.team==='blue'?-1:1) * currentSpd * game.dt;
+                     // BRIDGE CHECK FOR FORWARD MOVEMENT
+                     if (!this.isFlying && (this.y > 350 && this.y < 450)) {
+                          let distLeft = Math.abs(this.x - CONSTANTS.LANE_LEFT);
+                          let distRight = Math.abs(this.x - CONSTANTS.LANE_RIGHT);
+                          let bridgeX = distLeft < distRight ? CONSTANTS.LANE_LEFT : CONSTANTS.LANE_RIGHT;
+                          
+                          if (Math.abs(this.x - bridgeX) > 15) {
+                              let dir = bridgeX > this.x ? 1 : -1;
+                              this.x += dir * currentSpd * game.dt;
+                          } else {
+                              this.y += (this.team==='blue'?-1:1) * currentSpd * game.dt;
+                          }
+                     } else {
+                          this.y += (this.team==='blue'?-1:1) * currentSpd * game.dt;
+                     }
                  }
             }
         }
@@ -900,19 +921,27 @@ class Entity {
             if (e.isFlying && !this.canTargetAir) return;
             
             let d = Math.hypot(e.x - this.x, e.y - this.y);
+            if (d > this.sightRange) return;
+
             if(d < min) { min = d; c = e; }
         });
         return c;
     }
 
     draw(ctx) {
+        if (isNaN(this.x) || isNaN(this.y)) return; 
+
         ctx.fillStyle = 'rgba(0,0,0,0.3)';
         ctx.beginPath(); ctx.ellipse(this.x, this.y + 5, this.radius, this.radius/2, 0, 0, 6.28); ctx.fill();
 
-        let img = SPRITES[this.sprite] || SPRITES['knight'];
+        let img = SPRITES[this.sprite];
+        if (!img) return; 
+
         let w = this.radius * 2.5; let h = this.radius * 2.5;
         let bob = this.isBuilding ? 0 : Math.sin(this.animOffset) * 2;
-        
+
+        if (this.isThrown) bob -= Math.sin(this.throwProgress * Math.PI) * 100; 
+
         ctx.save();
         if (this.slowTimer > 0) ctx.filter = 'hue-rotate(180deg) brightness(1.2)'; 
         if (this.isCharging) ctx.filter = 'sepia(1) saturate(5)'; 
@@ -938,12 +967,9 @@ class Entity {
 
         ctx.restore();
 
-        // HP BAR - FIXED POSITION
         let pct = Math.max(0, this.hp / this.maxHp);
         let barY = this.y - h - 10;
-        
-        // Force bar below unit if it's too high up (e.g. Enemy King Tower)
-        if (barY < 20) barY = this.y + 20;
+        if (this.y < 80) barY = this.y + 20;
 
         ctx.fillStyle = '#333'; ctx.fillRect(this.x - 20, barY, 40, 6);
         ctx.fillStyle = this.team === 'blue' ? '#6f6' : '#f66'; ctx.fillRect(this.x - 20, barY, 40 * pct, 6);
@@ -1025,7 +1051,6 @@ class Projectile {
     }
 }
 
-// Global Handlers
 window.addEventListener('pointermove', (e) => { if(G) G.handleMove(e); });
 window.addEventListener('pointerup', (e) => { if(G) G.handleUp(e); });
 CANVAS.addEventListener('pointerdown', (e) => { if(G) G.handleDown(e); });
