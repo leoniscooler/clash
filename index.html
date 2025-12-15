@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Clash Royale</title>
+    <title>Clash Royale - Goblin Update</title>
     <style>
         * { box-sizing: border-box; }
         body {
@@ -207,6 +207,12 @@ createAsset('megaknight', `<rect x="20" y="20" width="60" height="60" rx="10" fi
 createAsset('golem', `<path d="M30 80 L50 20 L70 80" fill="#876"/><circle cx="50" cy="30" r="15" fill="#a98"/><rect x="20" y="40" width="20" height="40" fill="#654"/><rect x="60" y="40" width="20" height="40" fill="#654"/>`);
 createAsset('threem', `<circle cx="30" cy="40" r="12" fill="#fec"/><circle cx="50" cy="60" r="12" fill="#fec"/><circle cx="70" cy="40" r="12" fill="#fec"/>`);
 createAsset('leon', `<rect x="30" y="30" width="40" height="50" fill="#4a4"/><circle cx="50" cy="30" r="15" fill="#dca"/><rect x="20" y="40" width="10" height="30" fill="#dca"/><rect x="70" y="40" width="10" height="30" fill="#dca"/><line x1="30" y1="80" x2="30" y2="95" stroke="#333" stroke-width="5"/><line x1="70" y1="80" x2="70" y2="95" stroke="#333" stroke-width="5"/>`);
+// NEW GOBLIN ASSETS
+createAsset('speargoblins', `<circle cx="30" cy="30" r="15" fill="#4d4" stroke="#050"/><circle cx="70" cy="30" r="15" fill="#4d4" stroke="#050"/><circle cx="50" cy="70" r="18" fill="#4d4" stroke="#050"/><rect x="48" y="20" width="4" height="60" fill="#630"/><rect x="28" y="10" width="4" height="40" fill="#630"/><rect x="68" y="10" width="4" height="40" fill="#630"/>`);
+createAsset('dartgoblin', `<circle cx="50" cy="40" r="20" fill="#4d4"/><path d="M30 20 L70 20 L60 50 L40 50 Z" fill="#222"/><rect x="45" y="40" width="10" height="30" fill="#853"/>`);
+createAsset('goblingiant', `<rect x="20" y="30" width="60" height="60" rx="10" fill="#4d4" stroke="#050" stroke-width="3"/><circle cx="50" cy="20" r="15" fill="#4d4"/><circle cx="30" cy="15" r="8" fill="#4d4"/><circle cx="70" cy="15" r="8" fill="#4d4"/>`);
+createAsset('goblinbarrel', `<rect x="30" y="20" width="40" height="60" rx="10" fill="#630" stroke="#000"/><line x1="30" y1="35" x2="70" y2="35" stroke="#000"/><line x1="30" y1="65" x2="70" y2="65" stroke="#000"/>`);
+
 
 const CANVAS = document.getElementById('gameCanvas');
 const CTX = CANVAS.getContext('2d');
@@ -220,7 +226,7 @@ const CONSTANTS = {
     GAME_DURATION: 180, 
 };
 
-// 25 CARDS (Corrected Stats)
+// 25 CARDS (Corrected Stats + New Goblins)
 const CARDS = {
     knight: { name: "Knight", cost: 3, rarity: 'common', hp: 1766, dmg: 202, spd: 50, hit: 1.2, count: 1, type: 'melee', targetPref: 'any', sprite: 'knight', rng: 1.2 * TILE, sight: 5.5*TILE, targetsAir: false },
     archer: { name: "Archers", cost: 3, rarity: 'common', hp: 304, dmg: 107, spd: 55, hit: 0.9, count: 2, type: 'range', targetPref: 'any', sprite: 'archer', rng: 5.0 * TILE, sight: 5.5*TILE, targetsAir: true },
@@ -246,7 +252,13 @@ const CARDS = {
     megaknight: { name: "Mega Knight", cost: 7, rarity: 'legendary', hp: 3993, dmg: 268, spd: 50, hit: 1.7, count: 1, type: 'melee', targetPref: 'any', sprite: 'megaknight', rng: 1.2 * TILE, sight: 5.5*TILE, targetsAir: false, splash: true, splashRadius: 2.5*TILE, jump: true },
     golem: { name: "Golem", cost: 8, rarity: 'epic', hp: 5120, dmg: 312, spd: 30, hit: 2.5, count: 1, type: 'tank', targetPref: 'building', sprite: 'golem', rng: 1.0 * TILE, sight: 7.0*TILE, targetsAir: false, deathSpawn: true },
     threem: { name: "3 Musketeers", cost: 9, rarity: 'rare', hp: 720, dmg: 218, spd: 55, hit: 1.0, count: 3, type: 'range', targetPref: 'any', sprite: 'threem', rng: 6.0 * TILE, sight: 6.0*TILE, targetsAir: true },
-    leon: { name: "Leon", cost: 5, rarity: 'legendary', hp: 1200, dmg: 150, spd: 60, hit: 1.2, count: 1, type: 'melee', targetPref: 'any', sprite: 'leon', rng: 1.2 * TILE, sight: 5.5*TILE, targetsAir: false }
+    leon: { name: "Leon", cost: 5, rarity: 'legendary', hp: 1200, dmg: 150, spd: 60, hit: 1.2, count: 1, type: 'melee', targetPref: 'any', sprite: 'leon', rng: 1.2 * TILE, sight: 5.5*TILE, targetsAir: false },
+    // NEW CARDS
+    speargoblins: { name: "Spear Goblins", cost: 2, rarity: 'common', hp: 133, dmg: 81, spd: 100, hit: 1.7, count: 3, type: 'range', targetPref: 'any', sprite: 'speargoblins', rng: 5.0 * TILE, sight: 5.5*TILE, targetsAir: true },
+    dartgoblin: { name: "Dart Goblin", cost: 3, rarity: 'rare', hp: 260, dmg: 156, spd: 100, hit: 0.7, count: 1, type: 'range', targetPref: 'any', sprite: 'dartgoblin', rng: 6.5 * TILE, sight: 6.5*TILE, targetsAir: true },
+    goblingang: { name: "Goblin Gang", cost: 3, rarity: 'common', hp: 202, dmg: 120, spd: 100, hit: 1.1, count: 6, type: 'melee', targetPref: 'any', sprite: 'goblins', rng: 0.8 * TILE, sight: 5.5*TILE, targetsAir: false, mixed: true },
+    goblingiant: { name: "Goblin Giant", cost: 6, rarity: 'epic', hp: 3223, dmg: 176, spd: 45, hit: 1.5, count: 1, type: 'tank', targetPref: 'building', sprite: 'goblingiant', rng: 1.2 * TILE, sight: 7.0*TILE, targetsAir: false, deathSpawn: true },
+    goblinbarrel: { name: "Goblin Barrel", cost: 3, rarity: 'epic', hp: 1, dmg: 0, spd: 0, hit: 0, count: 1, type: 'spell', targetPref: 'any', sprite: 'goblinbarrel', rng: 0, globalDeploy: true }
 };
 
 // --- STATE ---
@@ -426,6 +438,8 @@ class Game {
             [allCardKeys[i], allCardKeys[j]] = [allCardKeys[j], allCardKeys[i]];
         }
         this.botDeck = allCardKeys.slice(0, 8);
+        this.botHand = this.botDeck.slice(0, 4);
+        this.botQueue = this.botDeck.slice(4);
         
         this.input = { cardIdx: -1, isDragging: false, x: 0, y: 0, valid: false };
 
@@ -448,6 +462,12 @@ class Game {
     }
 
     checkDeployValidity(x, y) {
+        // Goblin Barrel (or miner) can go anywhere
+        if(this.input.cardIdx !== -1) {
+            let k = this.hand[this.input.cardIdx];
+            if(CARDS[k].globalDeploy) return true;
+        }
+
         if (y > CONSTANTS.DOCK_Y) return false;
         if (y > CONSTANTS.BASE_DEPLOY) return true;
         let redLeftAlive = this.entities.some(e => e.team === 'red' && e.lane === 'left' && e.isBuilding);
@@ -501,12 +521,39 @@ class Game {
         let stats = CARDS[key];
         if(this.elixir >= stats.cost) {
             this.elixir -= stats.cost;
-            for(let i=0; i<stats.count; i++) {
-                let ox = (i*20) - (stats.count-1)*10;
-                let u = new Entity('blue', key, x + ox, y);
-                this.applyStats(u, stats);
-                this.entities.push(u);
+            
+            // SPECIAL DEPLOYMENT
+            if (key === 'goblinbarrel') {
+                 // Launch Projectile
+                 let kTower = this.entities.find(e => e.team === 'blue' && e.isKing);
+                 let sx = kTower ? kTower.x : 270;
+                 let sy = kTower ? kTower.y : 800;
+                 let p = new Projectile(sx, sy, {x: x, y: y, hp:1}, 'barrel', 'blue');
+                 p.targetPos = {x:x, y:y};
+                 this.projectiles.push(p);
+            } else if (key === 'goblingang') {
+                 // 3 Stab
+                 for(let i=0; i<3; i++) {
+                     let u = new Entity('blue', 'goblins', x+(i*15-15), y);
+                     this.applyStats(u, CARDS['goblins']);
+                     this.entities.push(u);
+                 }
+                 // 3 Spear
+                 for(let i=0; i<3; i++) {
+                     let u = new Entity('blue', 'speargoblins', x+(i*15-15), y+20);
+                     this.applyStats(u, CARDS['speargoblins']);
+                     this.entities.push(u);
+                 }
+            } else {
+                 // Normal
+                for(let i=0; i<stats.count; i++) {
+                    let ox = (i*20) - (stats.count-1)*10;
+                    let u = new Entity('blue', key, x + ox, y);
+                    this.applyStats(u, stats);
+                    this.entities.push(u);
+                }
             }
+
             let nextCard = this.queue.shift(); 
             this.queue.push(key);              
             this.hand[idx] = nextCard;         
@@ -538,7 +585,6 @@ class Game {
         this.timeLeft -= this.dt;
         this.elapsedTime += this.dt;
 
-        // COUNTDOWN TIMER
         let t = Math.max(0, Math.ceil(this.timeLeft));
         let m = Math.floor(t / 60);
         let s = t % 60;
@@ -547,16 +593,16 @@ class Game {
         if (this.timeLeft <= 0) {
             if (this.isOvertime) this.checkWinCondition(true); 
             else if (this.checkWinCondition(false) === false) {
-                this.isOvertime = true; this.timeLeft = 120; // Reset for Overtime
+                this.isOvertime = true; this.timeLeft = 120; 
                 showStatus("Sudden Death!");
             }
         }
         
         let currentMult = 1;
-        if (this.elapsedTime >= 240) { // 4:00+
+        if (this.elapsedTime >= 240) { 
              currentMult = 3;
              if(!this.hasTriggered3x) { showStatus("3x Elixir!"); this.hasTriggered3x = true; }
-        } else if (this.elapsedTime >= 120) { // 2:00+
+        } else if (this.elapsedTime >= 120) { 
              currentMult = 2;
              if(!this.hasTriggered2x) { showStatus("2x Elixir!"); this.hasTriggered2x = true; }
         }
@@ -577,15 +623,46 @@ class Game {
         });
 
         if(this.t > this.botNextMove) {
-            let k = this.botDeck[Math.floor(Math.random()*this.botDeck.length)];
-            let stats = CARDS[k];
-            if(this.botElixir >= stats.cost) {
+            let available = this.botHand.filter(k => CARDS[k].cost <= this.botElixir);
+            
+            if(available.length > 0) {
+                let k = available[Math.floor(Math.random() * available.length)];
+                let stats = CARDS[k];
                 this.botElixir -= stats.cost;
+                
                 let lane = Math.random() > 0.5 ? CONSTANTS.LANE_LEFT : CONSTANTS.LANE_RIGHT;
-                let u = new Entity('red', k, lane, 250); 
-                this.applyStats(u, stats); this.entities.push(u);
+                
+                // BOT LOGIC FOR SPECIAL CARDS
+                if (k === 'goblinbarrel') {
+                     let p = new Projectile(270, 100, {x: lane, y: 700, hp:1}, 'barrel', 'red');
+                     p.targetPos = {x: lane, y: 700}; // Aim at princess tower area
+                     this.projectiles.push(p);
+                } else if (k === 'goblingang') {
+                     for(let i=0; i<3; i++) {
+                         let u = new Entity('red', 'goblins', lane+(i*15-15), 250);
+                         this.applyStats(u, CARDS['goblins']);
+                         this.entities.push(u);
+                     }
+                     for(let i=0; i<3; i++) {
+                         let u = new Entity('red', 'speargoblins', lane+(i*15-15), 230);
+                         this.applyStats(u, CARDS['speargoblins']);
+                         this.entities.push(u);
+                     }
+                } else {
+                    let u = new Entity('red', k, lane, 250); 
+                    this.applyStats(u, stats); 
+                    this.entities.push(u);
+                }
+
+                let handIdx = this.botHand.indexOf(k);
+                let nextCard = this.botQueue.shift();
+                this.botQueue.push(k);
+                this.botHand[handIdx] = nextCard;
+
                 this.botNextMove = this.t + this.diffSettings.react + Math.random();
-            } else { this.botNextMove = this.t + 0.5; }
+            } else {
+                this.botNextMove = this.t + 0.5;
+            }
         }
 
         this.entities.sort((a,b) => a.y - b.y);
@@ -595,14 +672,22 @@ class Game {
         dead.forEach(e => {
             if(e.isBuilding && e.isKing) this.end(e.team === 'red' ? "BLUE WINS!" : "RED WINS!");
 
-            if(e.deathSpawn && e.sprite === 'golem') {
-                 for(let i=0; i<2; i++) {
-                     let g = new Entity(e.team, 'golemite', e.x + (i*20-10), e.y);
-                     g.maxHp = 1000; g.hp = 1000; g.dmg = 70; g.spd = 30; g.radius = 15; g.hitSpeed = 1.5;
-                     g.sprite = 'golem'; 
-                     this.entities.push(g);
+            if(e.deathSpawn) {
+                 if (e.sprite === 'golem') {
+                     for(let i=0; i<2; i++) {
+                         let g = new Entity(e.team, 'golemite', e.x + (i*20-10), e.y);
+                         g.maxHp = 1000; g.hp = 1000; g.dmg = 70; g.spd = 30; g.radius = 15; g.hitSpeed = 1.5;
+                         g.sprite = 'golem'; 
+                         this.entities.push(g);
+                     }
+                     this.projectiles.push(new Projectile(e.x, e.y, null, 'bomb', e.team, true, 100)); 
+                 } else if (e.sprite === 'goblingiant') {
+                     for(let i=0; i<2; i++) {
+                         let g = new Entity(e.team, 'speargoblins', e.x + (i*20-10), e.y);
+                         this.applyStats(g, CARDS['speargoblins']);
+                         this.entities.push(g);
+                     }
                  }
-                 this.projectiles.push(new Projectile(e.x, e.y, null, 'bomb', e.team, true, 100)); 
             }
         });
 
@@ -939,9 +1024,9 @@ class Entity {
 
         ctx.restore();
 
+        // HP BAR
         let pct = Math.max(0, this.hp / this.maxHp);
-        // FORCE HEALTH BAR ABOVE UNIT ALWAYS
-        let barY = this.y - h - 15; 
+        let barY = this.y - h - 15;
         
         ctx.fillStyle = '#333'; ctx.fillRect(this.x - 20, barY, 40, 6);
         ctx.fillStyle = this.team === 'blue' ? '#6f6' : '#f66'; ctx.fillRect(this.x - 20, barY, 40 * pct, 6);
@@ -959,6 +1044,7 @@ class Projectile {
         this.slows = slows || false;
         this.shrapnel = shrapnel || false;
         this.vx = 0; this.vy = 0; 
+        this.targetPos = null; // For barrel
     }
     
     update(game) {
@@ -974,6 +1060,32 @@ class Projectile {
             }
             if (Math.random() < 0.05) this.active = false; 
             return;
+        }
+
+        // BARREL LOGIC
+        if (this.type === 'barrel') {
+             let dx = this.targetPos.x - this.x;
+             let dy = this.targetPos.y - this.y;
+             let dist = Math.hypot(dx, dy);
+             
+             if (dist < 10) {
+                 this.active = false;
+                 // Spawn Goblins
+                 for(let i=0; i<3; i++) {
+                     // Spread around impact
+                     let ox = Math.cos(i*2.09) * 20;
+                     let oy = Math.sin(i*2.09) * 20;
+                     let u = new Entity(this.team, 'goblins', this.x + ox, this.y + oy);
+                     u.maxHp = 202; u.hp = 202; u.dmg = 120; u.spd = 100; u.hitSpeed = 1.1; u.range = 0.8*TILE; u.sightRange = 5.5*TILE; u.sprite='goblins'; u.canTargetAir = false;
+                     game.entities.push(u);
+                 }
+                 return;
+             }
+
+             let speed = 400;
+             this.x += (dx/dist) * speed * game.dt;
+             this.y += (dy/dist) * speed * game.dt;
+             return;
         }
 
         if(!this.target || this.target.hp <= 0) { this.active = false; return; }
@@ -1020,6 +1132,7 @@ class Projectile {
         else if (this.type === 'ice') { ctx.beginPath(); ctx.arc(this.x, this.y, 6, 0, 6.28); ctx.fillStyle = '#0ff'; ctx.fill(); } 
         else if (this.type === 'rocket') { ctx.fillStyle = 'orange'; ctx.fillRect(this.x-3, this.y-3, 6, 15); } 
         else if (this.type === 'shrapnel') { ctx.fillStyle = '#fa0'; ctx.fillRect(this.x-2, this.y-2, 4, 4); }
+        else if (this.type === 'barrel') { ctx.drawImage(SPRITES['goblinbarrel'], this.x-10, this.y-10, 20, 30); }
     }
 }
 
