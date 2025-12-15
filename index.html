@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Clash Royale - Random Opponent</title>
+    <title>Clash Royale</title>
     <style>
         * { box-sizing: border-box; }
         body {
@@ -18,101 +18,48 @@
         }
 
         #game-wrapper {
-            position: relative;
-            background: #000;
-            border: 12px solid #0a0a0a; 
-            border-radius: 20px;
+            position: relative; background: #000;
+            border: 12px solid #0a0a0a; border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-            overflow: hidden;
-            width: 360px; height: 640px; 
+            overflow: hidden; width: 360px; height: 640px; 
         }
 
         canvas { display: block; width: 100%; height: 100%; background: #4c9b56; }
+        .full-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; display: flex; flex-direction: column; }
 
-        .full-layer {
-            position: absolute; top: 0; left: 0;
-            width: 100%; height: 100%;
-            pointer-events: none;
-            display: flex; flex-direction: column;
-        }
-
-        #menu-layer {
-            background: linear-gradient(135deg, #3b607d, #2a4055);
-            pointer-events: auto; z-index: 200; 
-        }
-
+        /* MENU */
+        #menu-layer { background: linear-gradient(135deg, #3b607d, #2a4055); pointer-events: auto; z-index: 200; }
         .top-bar {
             width: 100%; height: 60px; background: rgba(0,0,0,0.3);
             display: flex; justify-content: center; align-items: center; 
-            padding: 10px 20px;
-            color: white; font-weight: bold; font-size: 18px; flex-shrink: 0;
+            padding: 10px 20px; color: white; font-weight: bold; font-size: 18px; flex-shrink: 0;
             text-shadow: 1px 1px 0 #000;
         }
-        
-        .trophy-display {
-            display: flex; align-items: center; gap: 8px; 
-            background: rgba(0,0,0,0.5); padding: 5px 15px; border-radius: 20px;
-            border: 1px solid #aaa;
-        }
-        
-        .trophy-icon {
-            width: 20px; height: 20px;
-            background: #ffd700; 
-            clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 80% 100%, 20% 100%, 0% 20%);
-            box-shadow: inset 0 -2px 5px rgba(0,0,0,0.5);
-            border: 1px solid #fff;
-        }
+        .trophy-display { display: flex; align-items: center; gap: 8px; background: rgba(0,0,0,0.5); padding: 5px 15px; border-radius: 20px; border: 1px solid #aaa; }
+        .trophy-icon { width: 20px; height: 20px; background: #ffd700; clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 80% 100%, 20% 100%, 0% 20%); border: 1px solid #fff; }
 
         #view-container { flex-grow: 1; position: relative; width: 100%; overflow: hidden; }
         .view { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; flex-direction: column; align-items: center; }
         .view.active { display: flex; }
 
-        .arena-graphic {
-            flex-grow: 1; width: 100%; display: flex; flex-direction: column;
-            justify-content: center; align-items: center;
-            background: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="%234c9b56" opacity="0.3"/></svg>');
-        }
+        /* BATTLE */
+        .arena-graphic { flex-grow: 1; width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; background: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="%234c9b56" opacity="0.3"/></svg>'); }
         #arena-title { font-size: 24px; color: #fff; text-shadow: 0 2px 0 #000; margin-bottom: 20px; font-weight: 900; text-transform: uppercase; }
-        
-        .battle-btn {
-            width: 160px; height: 70px; background: linear-gradient(to bottom, #ffeb3b, #fbc02d);
-            border: 3px solid #fff; border-radius: 8px;
-            box-shadow: 0 4px 0 #f57f17, 0 10px 10px rgba(0,0,0,0.4);
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            cursor: pointer; animation: btnPulse 2s infinite; pointer-events: auto; margin-bottom: 20px;
-        }
+        .battle-btn { width: 160px; height: 70px; background: linear-gradient(to bottom, #ffeb3b, #fbc02d); border: 3px solid #fff; border-radius: 8px; box-shadow: 0 4px 0 #f57f17; display: flex; flex-direction: column; justify-content: center; align-items: center; cursor: pointer; margin-bottom: 20px; pointer-events: auto; }
         .battle-text { font-size: 24px; font-weight: 900; color: #5d4037; text-transform: uppercase; -webkit-text-stroke: 1px #fff; }
         
         .diff-container { display: flex; gap: 10px; margin-top: 10px; pointer-events: auto; }
-        .diff-btn {
-            padding: 8px 15px; border: 2px solid #fff; border-radius: 20px;
-            background: #444; color: #ccc; font-weight: bold; cursor: pointer;
-            text-shadow: 1px 1px 0 #000; font-size: 12px; transition: all 0.2s;
-        }
-        .diff-btn.active { background: #3c9; color: white; transform: scale(1.1); box-shadow: 0 0 10px #3c9; border-color: #fff; }
+        .diff-btn { padding: 8px 15px; border: 2px solid #fff; border-radius: 20px; background: #444; color: #ccc; font-weight: bold; cursor: pointer; font-size: 12px; }
+        .diff-btn.active { background: #3c9; color: white; transform: scale(1.1); border-color: #fff; }
 
-        @keyframes btnPulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
-
+        /* DECK */
         #deck-view { background: #2a3a4a; padding: 10px; overflow-y: auto; }
-        .deck-header {
-            width: 100%; color: #fff; text-shadow: 1px 1px 0 #000;
-            margin-bottom: 5px; font-weight: 800; font-size: 14px;
-            display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 1px solid #555; padding-bottom: 5px;
-        }
+        .deck-header { width: 100%; color: #fff; text-shadow: 1px 1px 0 #000; margin-bottom: 5px; font-weight: 800; font-size: 14px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #555; padding-bottom: 5px; }
         .deck-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; width: 100%; margin-bottom: 20px; padding: 5px; }
-        #sort-select {
-            background: #444; color: white; border: 1px solid #777;
-            border-radius: 4px; padding: 2px 5px; font-size: 11px;
-            font-family: inherit; cursor: pointer;
-        }
+        #sort-select { background: #444; color: white; border: 1px solid #777; border-radius: 4px; padding: 2px 5px; font-size: 11px; cursor: pointer; }
 
-        .real-card {
-            width: 100%; aspect-ratio: 3/4; border-radius: 6px;
-            position: relative; cursor: pointer;
-            display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.6); transition: transform 0.1s; overflow: visible; 
-        }
+        /* CARDS */
+        .real-card { width: 100%; aspect-ratio: 3/4; border-radius: 6px; position: relative; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; box-shadow: 0 4px 6px rgba(0,0,0,0.6); overflow: visible; }
         .real-card.selected { transform: translateY(-5px); box-shadow: 0 0 15px #0f0; z-index: 10; }
         .real-card.active { transform: translateY(-15px); border-color: #ff0; box-shadow: 0 0 15px #ff0; }
         .real-card.common { background: radial-gradient(circle at center, #9ebdd6 40%, #5e7fa0 100%); border: 3px solid #5e7fa0; border-bottom: 6px solid #4a6a8a; }
@@ -125,14 +72,17 @@
         .elixir-drop span { transform: rotate(-45deg); margin-top: 2px; margin-left: 2px; }
         .card-name-tag { position: relative; width: 105%; text-align: center; font-family: 'Arial Black', sans-serif; font-size: 7px; color: #fff; text-shadow: 1px 1px 0 #000; margin-bottom: 4px; z-index: 3; letter-spacing: 0.5px; }
 
-        .bottom-tabs { width: 100%; height: 60px; background: #222; display: flex; justify-content: space-evenly; align-items: center; border-top: 2px solid #444; flex-shrink: 0; pointer-events: auto; }
+        .bottom-tabs { width: 100%; height: 60px; background: #222; display: flex; justify-content: space-evenly; align-items: center; border-top: 2px solid #444; pointer-events: auto; }
         .tab { width: 60px; height: 40px; background: #444; border-radius: 5px; display: flex; justify-content: center; align-items: center; font-size: 24px; cursor: pointer; color: #888; }
         .tab.active { background: #ffe040; color: #530; border: 2px solid #fff; transform: translateY(-5px); }
 
+        /* GAME UI */
         #game-ui-layer { justify-content: space-between; z-index: 100; display: none; }
         #top-hud { width: 100%; height: 60px; display: flex; justify-content: center; align-items: flex-start; padding-top: 10px; position: relative; pointer-events: none;}
         #timer-box { position: absolute; left: 15px; top: 15px; background: rgba(0,0,0,0.6); color: white; padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 18px; border: 2px solid #444; display: flex; flex-direction: column; align-items: center; font-family: 'Arial Black', sans-serif; pointer-events: auto; }
-        #game-status { font-size: 10px; color: #ffeb3b; text-transform: uppercase; margin-top: 2px; display: none; text-align: center; width: 100%; position: absolute; top: 60px; text-shadow: 2px 2px 0 #000; font-weight: 900; font-size: 24px; }
+        #game-status { font-size: 24px; color: #ffeb3b; text-transform: uppercase; margin-top: 2px; display: none; text-align: center; width: 100%; position: absolute; top: 150px; text-shadow: 2px 2px 0 #000, -1px -1px 0 #000; font-weight: 900; z-index: 500; animation: popIn 0.5s ease-out; }
+        @keyframes popIn { 0% { transform: scale(0); opacity: 0; } 70% { transform: scale(1.2); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
+
         #home-btn { position: absolute; right: 15px; top: 15px; width: 35px; height: 35px; background: #d32f2f; border: 2px solid #fff; border-radius: 8px; color: white; font-size: 20px; font-weight: bold; display: flex; justify-content: center; align-items: center; cursor: pointer; pointer-events: auto; box-shadow: 0 4px 0 #8b0000; text-shadow: 1px 1px 0 black; }
         #home-btn:active { transform: translateY(4px); box-shadow: none; }
         #bottom-dock-container { width: 100%; display: flex; flex-direction: column; align-items: center; padding-bottom: 5px; pointer-events: auto; }
@@ -204,9 +154,10 @@
     <canvas id="gameCanvas"></canvas>
     <div id="game-ui-layer" class="full-layer">
         <div id="top-hud">
-            <div id="timer-box"><span id="time-display">3:00</span><span id="game-status"></span></div>
+            <div id="timer-box"><span id="time-display">3:00</span></div>
             <div id="home-btn" onclick="returnToMenu()">⌂</div>
         </div>
+        <div id="game-status"></div>
         <div id="bottom-dock-container">
             <div id="elixir-container"><div id="elixir-fill"></div><div id="elixir-text">5</div></div>
             <div id="card-dock"></div>
@@ -264,7 +215,8 @@ const TILE = 30;
 
 const CONSTANTS = {
     LANE_LEFT: 4 * TILE, LANE_RIGHT: 14 * TILE, RIVER_Y: 400, BRIDGE_Y: 400, BASE_DEPLOY: 440,
-    DOCK_Y: 820, POCKET_Y: 180, CENTER_X: 540 / 2, TILE_SIZE: TILE,
+    DOCK_Y: 820, POCKET_Y: 215, 
+    CENTER_X: 540 / 2, TILE_SIZE: TILE,
     GAME_DURATION: 180, 
 };
 
@@ -315,6 +267,7 @@ if (localStorage.getItem('clashData')) {
         }
         trophies = data.trophies || 0;
     } catch(e) { 
+        console.log("Corrupt save, resetting.");
         localStorage.removeItem('clashData');
     }
 }
@@ -457,13 +410,16 @@ class Game {
         this.diffSettings = DIFFICULTY_SETTINGS[diff];
         this.botNextMove = this.diffSettings.react; 
         this.timeLeft = CONSTANTS.GAME_DURATION;
+        this.elapsedTime = 0; 
         this.isOvertime = false; this.doubleElixir = false; this.gameOver = false;
         
+        this.hasTriggered2x = false;
+        this.hasTriggered3x = false;
+
         this.myDeck = [...deck];
         this.hand = this.myDeck.slice(0, 4);
         this.queue = this.myDeck.slice(4);
         
-        // Random Bot Deck
         let allCardKeys = Object.keys(CARDS);
         for (let i = allCardKeys.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -478,7 +434,7 @@ class Game {
         this.spawnTower('blue', CONSTANTS.CENTER_X, 700, 4008, true, 'center'); 
         this.spawnTower('red', CONSTANTS.LANE_LEFT, 170, 2536, false, 'left');
         this.spawnTower('red', CONSTANTS.LANE_RIGHT, 170, 2536, false, 'right');
-        this.spawnTower('red', CONSTANTS.CENTER_X, 80, 4008, true, 'center'); 
+        this.spawnTower('red', CONSTANTS.CENTER_X, 135, 4008, true, 'center'); 
         
         setTimeout(() => renderHand(), 10);
     }
@@ -578,21 +534,38 @@ class Game {
 
     update() {
         if(this.gameOver) return;
-        this.t += this.dt; this.timeLeft -= this.dt;
-        if (!this.doubleElixir && (this.timeLeft <= CONSTANTS.DOUBLE_ELIXIR_TIME || this.isOvertime)) { this.doubleElixir = true; showStatus("x2 Elixir!"); }
-        
-        let rate = this.doubleElixir ? 1.4 : 2.8; 
-        let regen = this.dt / rate;
-        
-        if(this.elixir < 10) this.elixir += regen; 
-        if(this.botElixir < 10) this.botElixir += (regen * this.diffSettings.elixirMult);
+        this.t += this.dt;
+        this.timeLeft -= this.dt;
+        this.elapsedTime += this.dt;
+
+        // COUNTDOWN TIMER
+        let t = Math.max(0, Math.ceil(this.timeLeft));
+        let m = Math.floor(t / 60);
+        let s = t % 60;
+        document.getElementById('time-display').innerText = `${m}:${s < 10 ? '0' : ''}${s}`;
 
         if (this.timeLeft <= 0) {
             if (this.isOvertime) this.checkWinCondition(true); 
             else if (this.checkWinCondition(false) === false) {
-                this.isOvertime = true; this.timeLeft = CONSTANTS.OVERTIME_DURATION; showStatus("Sudden Death!");
+                this.isOvertime = true; this.timeLeft = 120; // Reset for Overtime
+                showStatus("Sudden Death!");
             }
         }
+        
+        let currentMult = 1;
+        if (this.elapsedTime >= 240) { // 4:00+
+             currentMult = 3;
+             if(!this.hasTriggered3x) { showStatus("3x Elixir!"); this.hasTriggered3x = true; }
+        } else if (this.elapsedTime >= 120) { // 2:00+
+             currentMult = 2;
+             if(!this.hasTriggered2x) { showStatus("2x Elixir!"); this.hasTriggered2x = true; }
+        }
+
+        let regen = (this.dt / 2.8) * currentMult; 
+        
+        if(this.elixir < 10) this.elixir += regen; 
+        if(this.botElixir < 10) this.botElixir += (regen * this.diffSettings.elixirMult);
+
 
         ['blue', 'red'].forEach(team => {
             let king = this.entities.find(e => e.team === team && e.isKing);
@@ -621,7 +594,6 @@ class Game {
         let dead = this.entities.filter(e => e.hp <= 0);
         dead.forEach(e => {
             if(e.isBuilding && e.isKing) this.end(e.team === 'red' ? "BLUE WINS!" : "RED WINS!");
-            else if(e.isBuilding && this.isOvertime) this.end(e.team === 'red' ? "BLUE WINS!" : "RED WINS!");
 
             if(e.deathSpawn && e.sprite === 'golem') {
                  for(let i=0; i<2; i++) {
@@ -968,9 +940,9 @@ class Entity {
         ctx.restore();
 
         let pct = Math.max(0, this.hp / this.maxHp);
-        let barY = this.y - h - 10;
-        if (this.y < 80) barY = this.y + 20;
-
+        // FORCE HEALTH BAR ABOVE UNIT ALWAYS
+        let barY = this.y - h - 15; 
+        
         ctx.fillStyle = '#333'; ctx.fillRect(this.x - 20, barY, 40, 6);
         ctx.fillStyle = this.team === 'blue' ? '#6f6' : '#f66'; ctx.fillRect(this.x - 20, barY, 40 * pct, 6);
     }
