@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Lash Loyale</title>
+    <title>Clash Royale</title>
     <style>
         * { box-sizing: border-box; }
         body {
@@ -94,8 +94,8 @@
         .game-card.active { transform: translateY(-15px) scale(1.05); border-color: #ffff00; box-shadow: 0 0 10px #ffff00; }
         .game-card.disabled { filter: grayscale(100%); cursor: not-allowed; }
         .game-card.common { background: linear-gradient(135deg, #6b9ac4, #3b6a94); border: 2px solid #4a7a9a; }
-        .game-card.rare   { background: linear-gradient(135deg, #f09e38, #c06e08); border: 2px solid #d07e18; }
-        .game-card.epic   { background: linear-gradient(135deg, #b738f0, #8708c0); border: 2px solid #9718d0; }
+        .game-card.rare 	{ background: linear-gradient(135deg, #f09e38, #c06e08); border: 2px solid #d07e18; }
+        .game-card.epic 	{ background: linear-gradient(135deg, #b738f0, #8708c0); border: 2px solid #9718d0; }
         .game-card.legendary { background: linear-gradient(135deg, #4ff, #d5f); border: 2px solid #4ff; }
         .game-card img { width: 85%; height: 70%; object-fit: contain; margin-top: 2px; z-index:1; pointer-events: none; }
         .game-card .cost { position: absolute; top: -5px; left: -5px; width: 22px; height: 22px; background: #d0f; color: white; border-radius: 50%; border: 2px solid white; display: flex; justify-content: center; align-items: center; font-weight: bold; font-size: 12px; z-index: 2; }
@@ -207,11 +207,19 @@ createAsset('megaknight', `<rect x="20" y="20" width="60" height="60" rx="10" fi
 createAsset('golem', `<path d="M30 80 L50 20 L70 80" fill="#876"/><circle cx="50" cy="30" r="15" fill="#a98"/><rect x="20" y="40" width="20" height="40" fill="#654"/><rect x="60" y="40" width="20" height="40" fill="#654"/>`);
 createAsset('threem', `<circle cx="30" cy="40" r="12" fill="#fec"/><circle cx="50" cy="60" r="12" fill="#fec"/><circle cx="70" cy="40" r="12" fill="#fec"/>`);
 createAsset('leon', `<rect x="30" y="30" width="40" height="50" fill="#4a4"/><circle cx="50" cy="30" r="15" fill="#dca"/><rect x="20" y="40" width="10" height="30" fill="#dca"/><rect x="70" y="40" width="10" height="30" fill="#dca"/><line x1="30" y1="80" x2="30" y2="95" stroke="#333" stroke-width="5"/><line x1="70" y1="80" x2="70" y2="95" stroke="#333" stroke-width="5"/>`);
-// NEW GOBLIN ASSETS
-createAsset('speargoblins', `<circle cx="30" cy="30" r="15" fill="#4d4" stroke="#050"/><circle cx="70" cy="30" r="15" fill="#4d4" stroke="#050"/><circle cx="50" cy="70" r="18" fill="#4d4" stroke="#050"/><rect x="48" y="20" width="4" height="60" fill="#630"/><rect x="28" y="10" width="4" height="40" fill="#630"/><rect x="68" y="10" width="4" height="40" fill="#630"/>`);
+// GOBLIN CARDS
+createAsset('speargoblins', `<circle cx="30" cy="30" r="15" fill="#4d4" stroke="#050"/><circle cx="70" cy="30" r="15" fill="#4d4" stroke="#050"/><circle cx="50" cy="70" r="18" fill="#4d4" stroke="#050"/><path d="M48 20 L52 20 L52 80 L48 80 Z" fill="#630"/><path d="M28 10 L32 10 L32 50 L28 50 Z" fill="#630"/><path d="M68 10 L72 10 L72 50 L68 50 Z" fill="#630"/>`);
 createAsset('dartgoblin', `<circle cx="50" cy="40" r="20" fill="#4d4"/><path d="M30 20 L70 20 L60 50 L40 50 Z" fill="#222"/><rect x="45" y="40" width="10" height="30" fill="#853"/>`);
 createAsset('goblingiant', `<rect x="20" y="30" width="60" height="60" rx="10" fill="#4d4" stroke="#050" stroke-width="3"/><circle cx="50" cy="20" r="15" fill="#4d4"/><circle cx="30" cy="15" r="8" fill="#4d4"/><circle cx="70" cy="15" r="8" fill="#4d4"/>`);
 createAsset('goblinbarrel', `<rect x="30" y="20" width="40" height="60" rx="10" fill="#630" stroke="#000"/><line x1="30" y1="35" x2="70" y2="35" stroke="#000"/><line x1="30" y1="65" x2="70" y2="65" stroke="#000"/>`);
+// SPELL ASSETS
+createAsset('fireball', `<circle cx="50" cy="50" r="30" fill="#f90"/><path d="M50 20 L65 50 L50 80 L35 50 Z" fill="#f00"/><path d="M50 50 L70 50 L50 30 Z" fill="#ff0"/>`);
+createAsset('zap', `<circle cx="50" cy="50" r="25" fill="#6cc"/><path d="M40 30 L60 70 M60 30 L40 70" stroke="#00f" stroke-width="5"/>`);
+createAsset('rocket', `<rect x="35" y="10" width="30" height="80" fill="#c00"/><path d="M50 10 L30 30 L70 30 Z" fill="#fcc"/><circle cx="50" cy="90" r="10" fill="#fa0"/>`);
+// BUILDING ASSETS
+createAsset('building', `<rect x="30" y="30" width="40" height="50" fill="#864" stroke="#310" stroke-width="3"/><rect x="40" y="40" width="20" height="10" fill="#d9a"/>`);
+createAsset('goblinhut', `<rect x="30" y="30" width="40" height="50" fill="#4d4" stroke="#050" stroke-width="3"/><rect x="40" y="40" width="20" height="10" fill="#fff"/><path d="M30 30 L50 10 L70 30 Z" fill="#630"/>`);
+createAsset('bombtower', `<rect x="30" y="30" width="40" height="50" fill="#999" stroke="#333" stroke-width="3"/><rect x="40" y="40" width="20" height="10" fill="#333"/><rect x="45" y="20" width="10" height="10" fill="#f00"/>`);
 
 
 const CANVAS = document.getElementById('gameCanvas');
@@ -226,43 +234,52 @@ const CONSTANTS = {
     GAME_DURATION: 180, 
 };
 
-// 25 CARDS (Corrected Stats + New Goblins)
+// 30 CARDS 
 const CARDS = {
-    knight: { name: "Knight", cost: 3, rarity: 'common', hp: 1766, dmg: 202, spd: 50, hit: 1.2, count: 1, type: 'melee', targetPref: 'any', sprite: 'knight', rng: 1.2 * TILE, sight: 5.5*TILE, targetsAir: false },
-    archer: { name: "Archers", cost: 3, rarity: 'common', hp: 304, dmg: 107, spd: 55, hit: 0.9, count: 2, type: 'range', targetPref: 'any', sprite: 'archer', rng: 5.0 * TILE, sight: 5.5*TILE, targetsAir: true },
-    giant:  { name: "Giant", cost: 5, rarity: 'rare', hp: 4091, dmg: 254, spd: 35, hit: 1.5, count: 1, type: 'tank', targetPref: 'building', sprite: 'giant', rng: 1.2 * TILE, sight: 7.5*TILE, targetsAir: false },
-    pekka:  { name: "Pekka", cost: 7, rarity: 'epic', hp: 3760, dmg: 816, spd: 35, hit: 1.8, count: 1, type: 'melee', targetPref: 'any', sprite: 'pekka', rng: 1.6 * TILE, sight: 5.0*TILE, targetsAir: false },
-    minipekka: { name: "Mini Pekka", cost: 4, rarity: 'rare', hp: 1361, dmg: 720, spd: 80, hit: 1.6, count: 1, type: 'melee', targetPref: 'any', sprite: 'minipekka', rng: 1.2 * TILE, sight: 5.5*TILE, targetsAir: false },
-    musketeer: { name: "Musketeer", cost: 4, rarity: 'rare', hp: 720, dmg: 218, spd: 55, hit: 1.0, count: 1, type: 'range', targetPref: 'any', sprite: 'musketeer', rng: 6.0 * TILE, sight: 6.0*TILE, targetsAir: true },
-    goblins:   { name: "Goblins", cost: 2, rarity: 'common', hp: 202, dmg: 120, spd: 100, hit: 1.1, count: 3, type: 'melee', targetPref: 'any', sprite: 'goblins', rng: 0.8 * TILE, sight: 5.5*TILE, targetsAir: false },
-    dragon:    { name: "Baby Dragon", cost: 4, rarity: 'epic', hp: 1152, dmg: 160, spd: 75, hit: 1.5, count: 1, type: 'range', targetPref: 'any', sprite: 'dragon', rng: 3.5 * TILE, sight: 5.5*TILE, flying: true, targetsAir: true, splash: true, splashRadius: 2.5*TILE },
-    wizard:    { name: "Wizard", cost: 5, rarity: 'rare', hp: 720, dmg: 281, spd: 55, hit: 1.4, count: 1, type: 'range', targetPref: 'any', sprite: 'wizard', rng: 5.5 * TILE, sight: 5.5*TILE, targetsAir: true, splash: true, splashRadius: 2.0*TILE },
-    skeletons: { name: "Skeletons", cost: 1, rarity: 'common', hp: 81, dmg: 81, spd: 80, hit: 1.0, count: 3, type: 'melee', targetPref: 'any', sprite: 'skeletons', rng: 0.5 * TILE, sight: 5.5*TILE, targetsAir: false },
-    valkyrie: { name: "Valkyrie", cost: 4, rarity: 'rare', hp: 1908, dmg: 267, spd: 55, hit: 1.5, count: 1, type: 'melee', targetPref: 'any', sprite: 'valkyrie', rng: 1.5 * TILE, sight: 5.5*TILE, targetsAir: false, splash: true, splashRadius: 2.0*TILE },
-    hog: { name: "Hog Rider", cost: 4, rarity: 'rare', hp: 1696, dmg: 318, spd: 100, hit: 1.6, count: 1, type: 'melee', targetPref: 'building', sprite: 'hog', rng: 1.2 * TILE, sight: 9.5*TILE, targetsAir: false },
-    balloon: { name: "Balloon", cost: 5, rarity: 'epic', hp: 1680, dmg: 960, spd: 55, hit: 3.0, count: 1, type: 'melee', targetPref: 'building', sprite: 'balloon', rng: 0.5 * TILE, sight: 7.7*TILE, flying: true, targetsAir: false },
-    prince: { name: "Prince", cost: 5, rarity: 'epic', hp: 2000, dmg: 392, spd: 55, hit: 1.4, count: 1, type: 'melee', targetPref: 'any', sprite: 'prince', rng: 1.6 * TILE, sight: 5.5*TILE, targetsAir: false, charge: true },
-    darkprince: { name: "Dark Prince", cost: 4, rarity: 'epic', hp: 1300, dmg: 240, spd: 55, hit: 1.3, count: 1, type: 'melee', targetPref: 'any', sprite: 'darkprince', rng: 1.2 * TILE, sight: 5.5*TILE, targetsAir: false, splash: true, splashRadius: 1.5 * TILE, charge: true },
-    bomber: { name: "Bomber", cost: 2, rarity: 'common', hp: 398, dmg: 222, spd: 55, hit: 1.8, count: 1, type: 'range', targetPref: 'any', sprite: 'bomber', rng: 4.5 * TILE, sight: 5.5*TILE, targetsAir: false, splash: true, splashRadius: 2.0*TILE },
-    icewizard: { name: "Ice Wizard", cost: 3, rarity: 'legendary', hp: 688, dmg: 90, spd: 50, hit: 1.7, count: 1, type: 'range', targetPref: 'any', sprite: 'icewizard', rng: 5.5 * TILE, sight: 5.5*TILE, targetsAir: true, splash: true, splashRadius: 1.5 * TILE, slows: true },
-    firecracker: { name: "Firecracker", cost: 3, rarity: 'common', hp: 304, dmg: 150, spd: 60, hit: 3.0, count: 1, type: 'range', targetPref: 'any', sprite: 'firecracker', rng: 6.0 * TILE, sight: 8.5*TILE, targetsAir: true, shrapnel: true },
-    barbarians: { name: "Barbarians", cost: 5, rarity: 'common', hp: 670, dmg: 190, spd: 50, hit: 1.3, count: 5, type: 'melee', targetPref: 'any', sprite: 'barbarians', rng: 0.8 * TILE, sight: 5.5*TILE, targetsAir: false },
-    minions: { name: "Minions", cost: 3, rarity: 'common', hp: 230, dmg: 102, spd: 80, hit: 1.0, count: 3, type: 'melee', targetPref: 'any', sprite: 'minions', rng: 2.0 * TILE, sight: 5.5*TILE, flying: true, targetsAir: true },
-    witch: { name: "Witch", cost: 5, rarity: 'epic', hp: 838, dmg: 134, spd: 50, hit: 0.7, count: 1, type: 'range', targetPref: 'any', sprite: 'witch', rng: 5.0 * TILE, sight: 5.5*TILE, targetsAir: true, spawner: true, splash: true, splashRadius: 1.5*TILE },
-    megaknight: { name: "Mega Knight", cost: 7, rarity: 'legendary', hp: 3993, dmg: 268, spd: 50, hit: 1.7, count: 1, type: 'melee', targetPref: 'any', sprite: 'megaknight', rng: 1.2 * TILE, sight: 5.5*TILE, targetsAir: false, splash: true, splashRadius: 2.5*TILE, jump: true },
-    golem: { name: "Golem", cost: 8, rarity: 'epic', hp: 5120, dmg: 312, spd: 30, hit: 2.5, count: 1, type: 'tank', targetPref: 'building', sprite: 'golem', rng: 1.0 * TILE, sight: 7.0*TILE, targetsAir: false, deathSpawn: true },
-    threem: { name: "3 Musketeers", cost: 9, rarity: 'rare', hp: 720, dmg: 218, spd: 55, hit: 1.0, count: 3, type: 'range', targetPref: 'any', sprite: 'threem', rng: 6.0 * TILE, sight: 6.0*TILE, targetsAir: true },
-    leon: { name: "Leon", cost: 5, rarity: 'legendary', hp: 1200, dmg: 150, spd: 60, hit: 1.2, count: 1, type: 'melee', targetPref: 'any', sprite: 'leon', rng: 1.2 * TILE, sight: 5.5*TILE, targetsAir: false },
-    // NEW CARDS
-    speargoblins: { name: "Spear Goblins", cost: 2, rarity: 'common', hp: 133, dmg: 81, spd: 100, hit: 1.7, count: 3, type: 'range', targetPref: 'any', sprite: 'speargoblins', rng: 5.0 * TILE, sight: 5.5*TILE, targetsAir: true },
-    dartgoblin: { name: "Dart Goblin", cost: 3, rarity: 'rare', hp: 260, dmg: 156, spd: 100, hit: 0.7, count: 1, type: 'range', targetPref: 'any', sprite: 'dartgoblin', rng: 6.5 * TILE, sight: 6.5*TILE, targetsAir: true },
-    goblingang: { name: "Goblin Gang", cost: 3, rarity: 'common', hp: 202, dmg: 120, spd: 100, hit: 1.1, count: 6, type: 'melee', targetPref: 'any', sprite: 'goblins', rng: 0.8 * TILE, sight: 5.5*TILE, targetsAir: false, mixed: true },
-    goblingiant: { name: "Goblin Giant", cost: 6, rarity: 'epic', hp: 3223, dmg: 176, spd: 45, hit: 1.5, count: 1, type: 'tank', targetPref: 'building', sprite: 'goblingiant', rng: 1.2 * TILE, sight: 7.0*TILE, targetsAir: false, deathSpawn: true },
-    goblinbarrel: { name: "Goblin Barrel", cost: 3, rarity: 'epic', hp: 1, dmg: 0, spd: 0, hit: 0, count: 1, type: 'spell', targetPref: 'any', sprite: 'goblinbarrel', rng: 0, globalDeploy: true }
+    knight: { name: "Knight", cost: 3, rarity: 'common', type: 'troop', hp: 1766, dmg: 202, spd: 50, hit: 1.2, count: 1, targetPref: 'any', sprite: 'knight', rng: 1.2 * TILE, sight: 5.5*TILE, targetsAir: false },
+    archer: { name: "Archers", cost: 3, rarity: 'common', type: 'troop', hp: 304, dmg: 107, spd: 55, hit: 0.9, count: 2, targetPref: 'any', sprite: 'archer', rng: 5.0 * TILE, sight: 5.5*TILE, targetsAir: true },
+    giant:	{ name: "Giant", cost: 5, rarity: 'rare', type: 'troop', hp: 4091, dmg: 254, spd: 35, hit: 1.5, count: 1, targetPref: 'building', sprite: 'giant', rng: 1.2 * TILE, sight: 7.5*TILE, targetsAir: false },
+    pekka:	{ name: "Pekka", cost: 7, rarity: 'epic', type: 'troop', hp: 3760, dmg: 816, spd: 35, hit: 1.8, count: 1, targetPref: 'any', sprite: 'pekka', rng: 1.6 * TILE, sight: 5.0*TILE, targetsAir: false },
+    minipekka: { name: "Mini Pekka", cost: 4, rarity: 'rare', type: 'troop', hp: 1361, dmg: 720, spd: 80, hit: 1.6, count: 1, targetPref: 'any', sprite: 'minipekka', rng: 1.2 * TILE, sight: 5.5*TILE, targetsAir: false },
+    musketeer: { name: "Musketeer", cost: 4, rarity: 'rare', type: 'troop', hp: 720, dmg: 218, spd: 55, hit: 1.0, count: 1, targetPref: 'any', sprite: 'musketeer', rng: 6.0 * TILE, sight: 6.0*TILE, targetsAir: true },
+    goblins:	{ name: "Goblins", cost: 2, rarity: 'common', type: 'troop', hp: 202, dmg: 120, spd: 100, hit: 1.1, count: 3, targetPref: 'any', sprite: 'goblins', rng: 0.8 * TILE, sight: 5.5*TILE, targetsAir: false },
+    dragon:	{ name: "Baby Dragon", cost: 4, rarity: 'epic', type: 'troop', hp: 1152, dmg: 160, spd: 75, hit: 1.5, count: 1, targetPref: 'any', sprite: 'dragon', rng: 3.5 * TILE, sight: 5.5*TILE, flying: true, targetsAir: true, splash: true, splashRadius: 2.5*TILE },
+    wizard:	{ name: "Wizard", cost: 5, rarity: 'rare', type: 'troop', hp: 720, dmg: 281, spd: 55, hit: 1.4, count: 1, targetPref: 'any', sprite: 'wizard', rng: 5.5 * TILE, sight: 5.5*TILE, targetsAir: true, splash: true, splashRadius: 2.0*TILE },
+    skeletons: { name: "Skeletons", cost: 1, rarity: 'common', type: 'troop', hp: 81, dmg: 81, spd: 80, hit: 1.0, count: 3, targetPref: 'any', sprite: 'skeletons', rng: 0.5 * TILE, sight: 5.5*TILE, targetsAir: false },
+    valkyrie: { name: "Valkyrie", cost: 4, rarity: 'rare', type: 'troop', hp: 1908, dmg: 267, spd: 55, hit: 1.5, count: 1, targetPref: 'any', sprite: 'valkyrie', rng: 1.5 * TILE, sight: 5.5*TILE, targetsAir: false, splash: true, splashRadius: 2.0*TILE },
+    hog: { name: "Hog Rider", cost: 4, rarity: 'rare', type: 'troop', hp: 1696, dmg: 318, spd: 100, hit: 1.6, count: 1, targetPref: 'building', sprite: 'hog', rng: 1.2 * TILE, sight: 9.5*TILE, targetsAir: false },
+    balloon: { name: "Balloon", cost: 5, rarity: 'epic', type: 'troop', hp: 1680, dmg: 960, spd: 55, hit: 3.0, count: 1, targetPref: 'building', sprite: 'balloon', rng: 0.5 * TILE, sight: 7.7*TILE, flying: true, targetsAir: false },
+    prince: { name: "Prince", cost: 5, rarity: 'epic', type: 'troop', hp: 2000, dmg: 392, spd: 55, hit: 1.4, count: 1, targetPref: 'any', sprite: 'prince', rng: 1.6 * TILE, sight: 5.5*TILE, targetsAir: false, charge: true },
+    darkprince: { name: "Dark Prince", cost: 4, rarity: 'epic', type: 'troop', hp: 1300, dmg: 240, spd: 55, hit: 1.3, count: 1, targetPref: 'any', sprite: 'darkprince', rng: 1.2 * TILE, sight: 5.5*TILE, targetsAir: false, splash: true, splashRadius: 1.5 * TILE, charge: true },
+    bomber: { name: "Bomber", cost: 2, rarity: 'common', type: 'troop', hp: 398, dmg: 222, spd: 55, hit: 1.8, count: 1, targetPref: 'any', sprite: 'bomber', rng: 4.5 * TILE, sight: 5.5*TILE, targetsAir: false, splash: true, splashRadius: 2.0*TILE },
+    icewizard: { name: "Ice Wizard", cost: 3, rarity: 'legendary', type: 'troop', hp: 688, dmg: 90, spd: 50, hit: 1.7, count: 1, targetPref: 'any', sprite: 'icewizard', rng: 5.5 * TILE, sight: 5.5*TILE, targetsAir: true, splash: true, splashRadius: 1.5 * TILE, slows: true },
+    firecracker: { name: "Firecracker", cost: 3, rarity: 'common', type: 'troop', hp: 304, dmg: 150, spd: 60, hit: 3.0, count: 1, targetPref: 'any', sprite: 'firecracker', rng: 6.0 * TILE, sight: 8.5*TILE, targetsAir: true, shrapnel: true },
+    barbarians: { name: "Barbarians", cost: 5, rarity: 'common', type: 'troop', hp: 670, dmg: 190, spd: 50, hit: 1.3, count: 5, targetPref: 'any', sprite: 'barbarians', rng: 0.8 * TILE, sight: 5.5*TILE, targetsAir: false },
+    minions: { name: "Minions", cost: 3, rarity: 'common', type: 'troop', hp: 230, dmg: 102, spd: 80, hit: 1.0, count: 3, targetPref: 'any', sprite: 'minions', rng: 2.0 * TILE, sight: 5.5*TILE, flying: true, targetsAir: true },
+    witch: { name: "Witch", cost: 5, rarity: 'epic', type: 'troop', hp: 838, dmg: 134, spd: 50, hit: 0.7, count: 1, targetPref: 'any', sprite: 'witch', rng: 5.0 * TILE, sight: 5.5*TILE, targetsAir: true, spawner: true, splash: true, splashRadius: 1.5*TILE },
+    megaknight: { name: "Mega Knight", cost: 7, rarity: 'legendary', type: 'troop', hp: 3993, dmg: 268, spd: 50, hit: 1.7, count: 1, targetPref: 'any', sprite: 'megaknight', rng: 1.2 * TILE, sight: 5.5*TILE, targetsAir: false, splash: true, splashRadius: 2.5*TILE, jump: true },
+    golem: { name: "Golem", cost: 8, rarity: 'epic', type: 'troop', hp: 5120, dmg: 312, spd: 30, hit: 2.5, count: 1, targetPref: 'building', sprite: 'golem', rng: 1.0 * TILE, sight: 7.0*TILE, targetsAir: false, deathSpawn: true },
+    threem: { name: "3 Musketeers", cost: 9, rarity: 'rare', type: 'troop', hp: 720, dmg: 218, spd: 55, hit: 1.0, count: 3, targetPref: 'any', sprite: 'threem', rng: 6.0 * TILE, sight: 6.0*TILE, targetsAir: true },
+    leon: { name: "Leon", cost: 5, rarity: 'legendary', type: 'troop', hp: 1200, dmg: 150, spd: 60, hit: 1.2, count: 1, targetPref: 'any', sprite: 'leon', rng: 1.2 * TILE, sight: 5.5*TILE, targetsAir: false },
+    // GOBLIN CARDS
+    speargoblins: { name: "Spear Goblins", cost: 2, rarity: 'common', type: 'troop', hp: 133, dmg: 81, spd: 100, hit: 1.7, count: 3, targetPref: 'any', sprite: 'speargoblins', rng: 5.0 * TILE, sight: 5.5*TILE, targetsAir: true },
+    dartgoblin: { name: "Dart Goblin", cost: 3, rarity: 'rare', type: 'troop', hp: 260, dmg: 156, spd: 100, hit: 0.7, count: 1, targetPref: 'any', sprite: 'dartgoblin', rng: 6.5 * TILE, sight: 6.5*TILE, targetsAir: true },
+    goblingang: { name: "Goblin Gang", cost: 3, rarity: 'common', type: 'troop', hp: 202, dmg: 120, spd: 100, hit: 1.1, count: 6, targetPref: 'any', sprite: 'goblins', rng: 0.8 * TILE, sight: 5.5*TILE, targetsAir: false, mixed: true },
+    goblingiant: { name: "Goblin Giant", cost: 6, rarity: 'epic', type: 'troop', hp: 3223, dmg: 176, spd: 45, hit: 1.5, count: 1, targetPref: 'building', sprite: 'goblingiant', rng: 1.2 * TILE, sight: 7.0*TILE, targetsAir: false, deathSpawn: true },
+    goblinbarrel: { name: "Goblin Barrel", cost: 3, rarity: 'epic', type: 'spell', hp: 1, dmg: 0, spd: 0, hit: 0, count: 1, targetPref: 'any', sprite: 'goblinbarrel', rng: 0, globalDeploy: true },
+    // SPELLS
+    fireball: { name: "Fireball", cost: 4, rarity: 'rare', type: 'spell', dmg: 700, radius: 2.5 * TILE, sprite: 'fireball', globalDeploy: true },
+    zap: { name: "Zap", cost: 2, rarity: 'common', type: 'spell', dmg: 200, radius: 2.0 * TILE, stunDuration: 0.5, sprite: 'zap', globalDeploy: true },
+    rocket: { name: "Rocket", cost: 6, rarity: 'epic', type: 'spell', dmg: 1300, radius: 2.0 * TILE, sprite: 'rocket', globalDeploy: true },
+    // BUILDINGS
+    goblinhut: { name: "Goblin Hut", cost: 5, rarity: 'rare', type: 'building', hp: 1398, dmg: 0, spd: 0, hit: 0, count: 1, targetPref: 'none', sprite: 'goblinhut', rng: 0, sight: 0, targetsAir: false, isBuilding: true, isSpawner: true, spawnRate: 7.0, spawnCard: 'speargoblins', spawnCount: 1, lifetime: 60 },
+    bombtower: { name: "Bomb Tower", cost: 4, rarity: 'rare', type: 'building', hp: 1672, dmg: 160, spd: 0, hit: 1.5, count: 1, targetPref: 'ground', sprite: 'bombtower', rng: 6.0 * TILE, sight: 6.0*TILE, targetsAir: false, isBuilding: true, isDefensive: true, splash: true, splashRadius: 2.0*TILE, deathDamage: 200, lifetime: 40 },
 };
 
 // --- STATE ---
-let userDeck = ['knight', 'archer', 'giant', 'pekka', 'minipekka', 'musketeer', 'goblins', 'dragon'];
+let defaultDeck = ['knight', 'archer', 'giant', 'fireball', 'minipekka', 'bombtower', 'goblins', 'zap'];
+let userDeck = defaultDeck;
+
 let trophies = 0;
 let allKeys = Object.keys(CARDS);
 let collection = allKeys.filter(k => !userDeck.includes(k)); 
@@ -273,7 +290,11 @@ if (localStorage.getItem('clashData')) {
         let data = JSON.parse(localStorage.getItem('clashData'));
         if (data.deck && Array.isArray(data.deck)) {
             let validDeck = data.deck.filter(k => CARDS[k]);
-            while(validDeck.length < 8) validDeck.push('knight');
+            while(validDeck.length < 8) {
+                let missingKey = allKeys.find(k => !validDeck.includes(k) && !collection.includes(k));
+                if(missingKey) validDeck.push(missingKey);
+                else validDeck.push('knight'); 
+            }
             userDeck = validDeck.slice(0, 8); 
             collection = allKeys.filter(k => !userDeck.includes(k));
         }
@@ -424,6 +445,7 @@ class Game {
         this.timeLeft = CONSTANTS.GAME_DURATION;
         this.elapsedTime = 0; 
         this.isOvertime = false; this.doubleElixir = false; this.gameOver = false;
+        this.isFrozen = false; 
         
         this.hasTriggered2x = false;
         this.hasTriggered3x = false;
@@ -432,12 +454,19 @@ class Game {
         this.hand = this.myDeck.slice(0, 4);
         this.queue = this.myDeck.slice(4);
         
-        let allCardKeys = Object.keys(CARDS);
-        for (let i = allCardKeys.length - 1; i > 0; i--) {
+        let allTroopsAndSpells = Object.keys(CARDS).filter(k => CARDS[k].type !== 'spell'); 
+        let botCardKeys = allTroopsAndSpells.filter(k => !userDeck.includes(k));
+
+        for (let i = botCardKeys.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
-            [allCardKeys[i], allCardKeys[j]] = [allCardKeys[j], allCardKeys[i]];
+            [botCardKeys[i], botCardKeys[j]] = [botCardKeys[j], botCardKeys[i]];
         }
-        this.botDeck = allCardKeys.slice(0, 8);
+        
+        this.botDeck = botCardKeys.slice(0, 8);
+        while (this.botDeck.length < 8) {
+            this.botDeck.push(allTroopsAndSpells[Math.floor(Math.random() * allTroopsAndSpells.length)]);
+        }
+        
         this.botHand = this.botDeck.slice(0, 4);
         this.botQueue = this.botDeck.slice(4);
         
@@ -456,24 +485,37 @@ class Game {
     spawnTower(team, x, y, hp, isKing, lane) {
         let t = new Entity(team, 'tower', x, y);
         t.maxHp = hp; t.hp = hp; t.dmg = 90; t.range = 7.5 * CONSTANTS.TILE_SIZE; 
-        t.spd = 0; t.hitSpeed = 0.8; t.radius = 35; t.isBuilding = true; t.isKing = isKing; t.lane = lane; t.active = !isKing; 
+        t.spd = 0; t.hitSpeed = 0.8; t.radius = 35; 
+        t.isBuilding = true; t.isKing = isKing; t.lane = lane; t.active = !isKing; 
         t.canTargetAir = true; t.sightRange = 7.0*TILE; 
         this.entities.push(t);
     }
 
     checkDeployValidity(x, y) {
-        // Goblin Barrel (or miner) can go anywhere
-        if(this.input.cardIdx !== -1) {
-            let k = this.hand[this.input.cardIdx];
-            if(CARDS[k].globalDeploy) return true;
+        if(this.input.cardIdx === -1) return false;
+        let k = this.hand[this.input.cardIdx];
+        let stats = CARDS[k];
+
+        if(stats.globalDeploy) return true;
+        if (y > CONSTANTS.DOCK_Y) return false;
+
+        if (stats.type === 'troop') {
+            if (y > CONSTANTS.BASE_DEPLOY) return true;
+            
+            let redLeftAlive = this.entities.some(e => e.team === 'red' && e.lane === 'left' && e.isBuilding && !e.isKing);
+            let redRightAlive = this.entities.some(e => e.team === 'red' && e.lane === 'right' && e.isBuilding && !e.isKing);
+            
+            if (!redLeftAlive && x < CONSTANTS.CENTER_X && y > CONSTANTS.POCKET_Y) return true;
+            if (!redRightAlive && x > CONSTANTS.CENTER_X && y > CONSTANTS.POCKET_Y) return true;
+            
+            return false;
+        } 
+        
+        if (stats.type === 'building') {
+            if (y < CONSTANTS.RIVER_Y) return false;
+            return true;
         }
 
-        if (y > CONSTANTS.DOCK_Y) return false;
-        if (y > CONSTANTS.BASE_DEPLOY) return true;
-        let redLeftAlive = this.entities.some(e => e.team === 'red' && e.lane === 'left' && e.isBuilding);
-        let redRightAlive = this.entities.some(e => e.team === 'red' && e.lane === 'right' && e.isBuilding);
-        if (!redLeftAlive && x < CONSTANTS.CENTER_X && y > CONSTANTS.POCKET_Y) return true;
-        if (!redRightAlive && x > CONSTANTS.CENTER_X && y > CONSTANTS.POCKET_Y) return true;
         return false;
     }
 
@@ -510,7 +552,7 @@ class Game {
                 this.input.cardIdx = idx;
                 this.input.isDragging = true;
                 this.input.valid = false;
-                document.getElementById('card-'+idx).classList.add('dragging');
+                document.getElementById('card-'+idx).classList.add('active');
             }
             renderHand();
         }
@@ -522,44 +564,111 @@ class Game {
         if(this.elixir >= stats.cost) {
             this.elixir -= stats.cost;
             
-            // SPECIAL DEPLOYMENT
-            if (key === 'goblinbarrel') {
-                 // Launch Projectile
-                 let kTower = this.entities.find(e => e.team === 'blue' && e.isKing);
-                 let sx = kTower ? kTower.x : 270;
-                 let sy = kTower ? kTower.y : 800;
-                 let p = new Projectile(sx, sy, {x: x, y: y, hp:1}, 'barrel', 'blue');
-                 p.targetPos = {x:x, y:y};
+            let kTower = this.entities.find(e => e.team === 'blue' && e.isKing);
+            let sx = kTower ? kTower.x : 270;
+            let sy = kTower ? kTower.y : 800;
+            
+            // SPELL DEPLOYMENT (Rocket, Goblin Barrel)
+            if (stats.type === 'spell' && (key === 'goblinbarrel' || key === 'rocket')) {
+                 let p = new Projectile(sx, sy, null, key, 'blue');
+                 p.targetPos = {x: x, y: y};
+                 p.damage = stats.dmg;
+                 p.radius = stats.radius;
+                 p.stunDuration = stats.stunDuration || 0;
+                 p.speed = (key === 'goblinbarrel') ? 400 : 250;
                  this.projectiles.push(p);
-            } else if (key === 'goblingang') {
-                 // 3 Stab
+            } 
+            // INSTANT SPELL DEPLOYMENT (Fireball, Zap)
+            else if (stats.type === 'spell') {
+                 let p = new Projectile(x, y, null, key, 'blue'); 
+                 p.targetPos = {x: x, y: y};
+                 p.damage = stats.dmg;
+                 p.radius = stats.radius;
+                 p.stunDuration = stats.stunDuration || 0;
+                 this.createSpellEffect(p, x, y);
+            }
+            // BUILDING DEPLOYMENT (Goblin Hut, Bomb Tower)
+            else if (stats.type === 'building') {
+                let p = new Projectile(sx, sy, null, 'building_deploy', 'blue');
+                p.targetPos = {x: x, y: y};
+                p.cardKey = key; 
+                p.speed = 1000; 
+                this.projectiles.push(p);
+
+                this.isFrozen = true;
+                setTimeout(() => {
+                    this.isFrozen = false;
+                }, 100); 
+
+            }
+            // TROOP DEPLOYMENT
+            else if (key === 'goblingang') {
                  for(let i=0; i<3; i++) {
-                     let u = new Entity('blue', 'goblins', x+(i*15-15), y);
-                     this.applyStats(u, CARDS['goblins']);
-                     this.entities.push(u);
+                      let u = new Entity('blue', 'goblins', x+(i*15-15), y);
+                      this.applyStats(u, CARDS['goblins']);
+                      this.entities.push(u);
                  }
-                 // 3 Spear
                  for(let i=0; i<3; i++) {
-                     let u = new Entity('blue', 'speargoblins', x+(i*15-15), y+20);
-                     this.applyStats(u, CARDS['speargoblins']);
-                     this.entities.push(u);
+                      let u = new Entity('blue', 'speargoblins', x+(i*15-15), y+20);
+                      this.applyStats(u, CARDS['speargoblins']);
+                      this.entities.push(u);
                  }
             } else {
-                 // Normal
-                for(let i=0; i<stats.count; i++) {
-                    let ox = (i*20) - (stats.count-1)*10;
-                    let u = new Entity('blue', key, x + ox, y);
-                    this.applyStats(u, stats);
-                    this.entities.push(u);
-                }
+                 // Normal Troop Deployment
+                 for(let i=0; i<stats.count; i++) {
+                     let ox = (i*20) - (stats.count-1)*10;
+                     let u = new Entity('blue', key, x + ox, y);
+                     this.applyStats(u, stats);
+                     this.entities.push(u);
+                 }
             }
 
             let nextCard = this.queue.shift(); 
-            this.queue.push(key);              
-            this.hand[idx] = nextCard;         
+            this.queue.push(key); 	         
+            this.hand[idx] = nextCard; 	     
             this.input.cardIdx = -1;
             this.input.isDragging = false;
             renderHand(); 
+        }
+    }
+    
+    // Handles final building placement after the projectile hits (and the freeze ends)
+    placeBuilding(cardKey, x, y, team) {
+        let stats = CARDS[cardKey];
+        let u = new Entity(team, cardKey, x, y);
+        this.applyStats(u, stats);
+        u.isBuilding = true;
+        this.entities.push(u);
+    }
+
+    // Handles the actual damage and spawns the visual effect
+    createSpellEffect(spell, x, y) {
+        // 1. Apply Damage and Effects
+        this.entities.forEach(e => {
+            if (e.team === spell.team) return;
+            
+            let dist = Math.hypot(e.x - x, e.y - y);
+            if (dist <= spell.radius + e.radius) {
+                e.hp -= spell.damage;
+                
+                if (spell.stunDuration > 0 && e.stunTimer < spell.stunDuration) {
+                    e.stunTimer = spell.stunDuration;
+                }
+            }
+        });
+        
+        // 2. Spawn Visual Effect or Troops
+        if (spell.type === 'goblinbarrel') {
+             for(let i=0; i<3; i++) {
+                 let ox = Math.cos(i*2.09) * 20;
+                 let oy = Math.sin(i*2.09) * 20;
+                 let u = new Entity(spell.team, 'goblins', x + ox, y + oy);
+                 this.applyStats(u, CARDS['goblins']);
+                 this.entities.push(u);
+             }
+        } else if (spell.type === 'fireball' || spell.type === 'zap' || spell.type === 'rocket' || spell.type === 'bomb') {
+             let effect = new SpellEffect(x, y, spell.type, spell.radius);
+             this.entities.push(effect);
         }
     }
 
@@ -574,6 +683,17 @@ class Game {
         entity.shrapnel = stats.shrapnel || false;
         entity.charge = stats.charge || false;
         entity.jump = stats.jump || false;
+        
+        // Building-specific stats
+        entity.isBuilding = stats.isBuilding || false;
+        entity.isDefensive = stats.isDefensive || false;
+        entity.isSpawner = stats.isSpawner || false;
+        entity.spawnCard = stats.spawnCard;
+        entity.spawnCount = stats.spawnCount || 1;
+        entity.spawnRate = stats.spawnRate || 10;
+        entity.deathDamage = stats.deathDamage || 0;
+        entity.lifetime = stats.lifetime || 0;
+
         entity.spawner = stats.spawner || false;
         entity.deathSpawn = stats.deathSpawn || false;
         entity.sightRange = stats.sight || 5.5 * TILE;
@@ -581,6 +701,8 @@ class Game {
 
     update() {
         if(this.gameOver) return;
+        if(this.isFrozen) return; 
+
         this.t += this.dt;
         this.timeLeft -= this.dt;
         this.elapsedTime += this.dt;
@@ -630,28 +752,39 @@ class Game {
                 let stats = CARDS[k];
                 this.botElixir -= stats.cost;
                 
-                let lane = Math.random() > 0.5 ? CONSTANTS.LANE_LEFT : CONSTANTS.LANE_RIGHT;
+                let deployX = Math.random() > 0.5 ? CONSTANTS.LANE_LEFT : CONSTANTS.LANE_RIGHT;
+                let deployY = 250 + (Math.random() * 50 - 25);
                 
-                // BOT LOGIC FOR SPECIAL CARDS
-                if (k === 'goblinbarrel') {
-                     let p = new Projectile(270, 100, {x: lane, y: 700, hp:1}, 'barrel', 'red');
-                     p.targetPos = {x: lane, y: 700}; // Aim at princess tower area
+                // BOT LOGIC FOR DEPLOYMENT
+                if (stats.type === 'spell' && k === 'goblinbarrel') {
+                     let p = new Projectile(270, 100, null, 'goblinbarrel', 'red');
+                     p.targetPos = {x: deployX, y: 700}; 
+                     p.speed = 400; 
                      this.projectiles.push(p);
+                } else if (stats.type === 'building') {
+                    // Bot building placement 
+                    let u = new Entity('red', k, deployX, CONSTANTS.RIVER_Y - 50);
+                    this.applyStats(u, stats);
+                    u.isBuilding = true;
+                    this.entities.push(u);
                 } else if (k === 'goblingang') {
                      for(let i=0; i<3; i++) {
-                         let u = new Entity('red', 'goblins', lane+(i*15-15), 250);
-                         this.applyStats(u, CARDS['goblins']);
-                         this.entities.push(u);
+                          let u = new Entity('red', 'goblins', deployX+(i*15-15), deployY);
+                          this.applyStats(u, CARDS['goblins']);
+                          this.entities.push(u);
                      }
                      for(let i=0; i<3; i++) {
-                         let u = new Entity('red', 'speargoblins', lane+(i*15-15), 230);
-                         this.applyStats(u, CARDS['speargoblins']);
-                         this.entities.push(u);
+                          let u = new Entity('red', 'speargoblins', deployX+(i*15-15), deployY+20);
+                          this.applyStats(u, CARDS['speargoblins']);
+                          this.entities.push(u);
                      }
                 } else {
-                    let u = new Entity('red', k, lane, 250); 
-                    this.applyStats(u, stats); 
-                    this.entities.push(u);
+                    for(let i=0; i<stats.count; i++) {
+                        let ox = (i*20) - (stats.count-1)*10;
+                        let u = new Entity('red', k, deployX + ox + (Math.random()*10-5), deployY + (Math.random()*10-5));
+                        this.applyStats(u, stats); 
+                        this.entities.push(u);
+                    }
                 }
 
                 let handIdx = this.botHand.indexOf(k);
@@ -668,30 +801,42 @@ class Game {
         this.entities.sort((a,b) => a.y - b.y);
         this.entities.forEach(e => e.update(this));
         
-        let dead = this.entities.filter(e => e.hp <= 0);
+        let dead = this.entities.filter(e => e.hp <= 0 && e.type !== 'effect');
         dead.forEach(e => {
             if(e.isBuilding && e.isKing) this.end(e.team === 'red' ? "BLUE WINS!" : "RED WINS!");
 
+            // Death Damage/Spawn Logic
+            if(e.deathDamage > 0) {
+                 this.entities.forEach(ent => {
+                     if (ent.team !== e.team && Math.hypot(ent.x - e.x, ent.y - e.y) < 3 * TILE) {
+                         ent.hp -= e.deathDamage;
+                     }
+                 });
+                 // Trigger bomb impact visual effect
+                 let effect = new SpellEffect(e.x, e.y, 'bomb', 3 * TILE, 0.2);
+                 this.entities.push(effect);
+            }
             if(e.deathSpawn) {
                  if (e.sprite === 'golem') {
                      for(let i=0; i<2; i++) {
-                         let g = new Entity(e.team, 'golemite', e.x + (i*20-10), e.y);
-                         g.maxHp = 1000; g.hp = 1000; g.dmg = 70; g.spd = 30; g.radius = 15; g.hitSpeed = 1.5;
-                         g.sprite = 'golem'; 
-                         this.entities.push(g);
+                          let g = new Entity(e.team, 'golemite', e.x + (i*20-10), e.y);
+                          g.maxHp = 1000; g.hp = 1000; g.dmg = 70; g.spd = 30; g.radius = 15; g.hitSpeed = 1.5;
+                          g.sprite = 'golem'; 
+                          this.entities.push(g);
                      }
-                     this.projectiles.push(new Projectile(e.x, e.y, null, 'bomb', e.team, true, 100)); 
                  } else if (e.sprite === 'goblingiant') {
                      for(let i=0; i<2; i++) {
-                         let g = new Entity(e.team, 'speargoblins', e.x + (i*20-10), e.y);
-                         this.applyStats(g, CARDS['speargoblins']);
-                         this.entities.push(g);
+                          let g = new Entity(e.team, 'speargoblins', e.x + (i*20-10), e.y);
+                          this.applyStats(g, CARDS['speargoblins']);
+                          this.entities.push(g);
                      }
                  }
             }
         });
 
-        this.entities = this.entities.filter(e => e.hp > 0);
+        this.entities = this.entities.filter(e => e.hp > 0 || e.type === 'effect');
+        this.entities = this.entities.filter(e => e.type !== 'effect' || e.duration > 0);
+
         this.projectiles.forEach(p => p.update(this));
         this.projectiles = this.projectiles.filter(p => p.active);
     }
@@ -723,8 +868,8 @@ class Game {
         for(let r=0; r<32; r++) for(let c=0; c<18; c++) if((r+c)%2===0) CTX.fillRect(c*30, r*30, 30, 30);
 
         CTX.strokeStyle = 'rgba(255, 255, 255, 0.3)'; CTX.lineWidth = 2; CTX.setLineDash([10, 10]); CTX.beginPath();
-        let redLeftAlive = this.entities.some(e => e.team === 'red' && e.lane === 'left' && e.isBuilding);
-        let redRightAlive = this.entities.some(e => e.team === 'red' && e.lane === 'right' && e.isBuilding);
+        let redLeftAlive = this.entities.some(e => e.team === 'red' && e.lane === 'left' && e.isBuilding && !e.isKing);
+        let redRightAlive = this.entities.some(e => e.team === 'red' && e.lane === 'right' && e.isBuilding && !e.isKing);
         let leftY = redLeftAlive ? CONSTANTS.BASE_DEPLOY : CONSTANTS.POCKET_Y;
         CTX.moveTo(0, leftY); CTX.lineTo(CONSTANTS.CENTER_X, leftY); CTX.lineTo(CONSTANTS.CENTER_X, CONSTANTS.BASE_DEPLOY);
         let rightY = redRightAlive ? CONSTANTS.BASE_DEPLOY : CONSTANTS.POCKET_Y;
@@ -737,27 +882,113 @@ class Game {
         CTX.fillRect(CONSTANTS.LANE_LEFT - 30, CONSTANTS.BRIDGE_Y - 30, 60, 60);
         CTX.fillRect(CONSTANTS.LANE_RIGHT - 30, CONSTANTS.BRIDGE_Y - 30, 60, 60);
 
-        this.entities.forEach(e => e.draw(CTX));
+        this.entities.filter(e => e.type !== 'effect').forEach(e => e.draw(CTX));
+        
         this.projectiles.forEach(p => p.draw(CTX));
+        
+        this.entities.filter(e => e.type === 'effect').forEach(e => e.draw(CTX));
 
+
+        // Deployment Preview
         if(this.input.cardIdx !== -1) {
-            if (this.input.isDragging || this.input.y < CONSTANTS.DOCK_Y) {
-                let k = this.hand[this.input.cardIdx];
-                let s = CARDS[k];
+            let k = this.hand[this.input.cardIdx];
+            let s = CARDS[k];
+            let validColor = this.input.valid ? '#fff' : '#f00';
+            
+            // Draw range circle for troops/defensive building
+            if (s.type === 'troop' || (s.isBuilding && s.isDefensive)) {
                 CTX.beginPath(); CTX.arc(this.input.x, this.input.y, s.rng, 0, 6.28);
                 CTX.fillStyle = this.input.valid ? 'rgba(255, 255, 255, 0.2)' : 'rgba(255, 0, 0, 0.2)';
-                CTX.fill(); CTX.strokeStyle = this.input.valid ? '#fff' : '#f00'; CTX.lineWidth = 2; CTX.stroke();
-                CTX.save(); CTX.globalAlpha = 0.7;
-                let img = SPRITES[s.sprite]; 
-                if (img) {
-                    let w = 50, h = 50; 
-                    CTX.drawImage(img, this.input.x - w/2, this.input.y - h/2, w, h);
-                }
-                CTX.restore();
+                CTX.fill(); CTX.strokeStyle = validColor; CTX.lineWidth = 2; CTX.stroke();
             }
+
+            // Draw deploy box or spell radius
+            if (s.type === 'spell' || s.type === 'building') {
+                CTX.beginPath(); 
+                let radius = s.type === 'spell' ? s.radius : 40; 
+                if (radius > 0) {
+                    CTX.arc(this.input.x, this.input.y, radius, 0, 6.28);
+                } else {
+                    CTX.rect(this.input.x - 30, this.input.y - 30, 60, 60);
+                }
+                CTX.fillStyle = this.input.valid ? 'rgba(255, 255, 255, 0.2)' : 'rgba(255, 0, 0, 0.2)';
+                CTX.fill(); CTX.strokeStyle = validColor; CTX.lineWidth = 2; CTX.stroke();
+            }
+
+            CTX.save(); CTX.globalAlpha = 0.7;
+            let img = SPRITES[s.sprite]; 
+            if (img) {
+                let w = 50, h = 50; 
+                CTX.drawImage(img, this.input.x - w/2, this.input.y - h/2, w, h);
+            }
+            CTX.restore();
         }
     }
 }
+
+// SpellEffect for visual-only animations
+class SpellEffect {
+    constructor(x, y, spellType, radius, duration = 0.2) { 
+        this.x = x;
+        this.y = y;
+        this.type = 'effect';
+        this.spellType = spellType;
+        this.radius = radius;
+        this.duration = duration; 
+        this.initialDuration = duration;
+        this.hp = 1; 
+    }
+
+    update(game) {
+        this.duration -= game.dt;
+        this.hp = this.duration > 0 ? 1 : 0;
+    }
+
+    draw(ctx) {
+        if (this.duration <= 0) return;
+        
+        let progress = 1 - (this.duration / this.initialDuration);
+        
+        ctx.save();
+        ctx.globalAlpha = 1.0 - progress; 
+
+        if (this.spellType === 'fireball' || this.spellType === 'rocket' || this.spellType === 'bomb') {
+            let color1 = (this.spellType === 'bomb') ? 'rgba(100, 100, 100' : 'rgba(255, 100, 0';
+            let color2 = (this.spellType === 'bomb') ? 'rgba(255, 255, 255' : 'rgba(255, 255, 0';
+
+            ctx.fillStyle = `${color1}, ${ctx.globalAlpha})`;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius * (1.0 + progress * 0.5), 0, 2 * Math.PI); 
+            ctx.fill();
+            
+            ctx.fillStyle = `${color2}, ${ctx.globalAlpha})`;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius * 0.6 * (1.0 + progress * 0.2), 0, 2 * Math.PI);
+            ctx.fill();
+
+        } else if (this.spellType === 'zap') {
+            ctx.fillStyle = `rgba(0, 50, 255, ${ctx.globalAlpha})`;
+            ctx.strokeStyle = `rgba(255, 255, 255, ${ctx.globalAlpha})`;
+            ctx.lineWidth = 4;
+            
+            for(let i=0; i<8; i++) {
+                 let angle = i * Math.PI / 4;
+                 let startX = this.x + Math.cos(angle) * this.radius * 0.5;
+                 let startY = this.y + Math.sin(angle) * this.radius * 0.5;
+                 let endX = this.x + Math.cos(angle) * this.radius * (1.0 - progress * 0.2);
+                 let endY = this.y + Math.sin(angle) * this.radius * (1.0 - progress * 0.2);
+                 
+                 ctx.beginPath();
+                 ctx.moveTo(startX, startY);
+                 ctx.lineTo(endX, endY);
+                 ctx.stroke();
+            }
+        }
+        
+        ctx.restore();
+    }
+}
+
 
 class Entity {
     constructor(team, type, x, y) {
@@ -771,11 +1002,20 @@ class Entity {
         this.canTargetAir = true; this.sightRange = 5.5 * TILE;
         this.splash = false; this.splashRadius = 0;
         this.slows = false; this.slowTimer = 0;
+        this.stunTimer = 0; 
         this.shrapnel = false;
         this.charge = false; this.chargeTimer = 0; this.isCharging = false;
         this.jump = false; this.jumpTimer = 0; this.isJumping = false; this.jumpTarget = null;
         this.spawner = false; this.spawnTimer = 0;
         this.deathSpawn = false;
+        
+        // Building lifetime
+        this.lifetime = 0; 
+        this.deathDamage = 0;
+        this.spawnRate = 0;
+        this.spawnCard = null;
+        this.spawnCount = 0;
+
         // LEON ABILITY
         this.throwCooldown = 0;
         this.isThrown = false; 
@@ -785,10 +1025,56 @@ class Entity {
     }
 
     update(game) {
+        if (this.type === 'effect') {
+            this.duration -= game.dt;
+            this.hp = this.duration > 0 ? 1 : 0;
+            return;
+        }
+
         this.slowTimer -= game.dt;
         this.retargetTimer -= game.dt;
         this.throwCooldown -= game.dt;
+        this.stunTimer -= game.dt; 
 
+        // BUILDING LIFETIME
+        if (this.isBuilding && !this.isKing && this.lifetime > 0) {
+            this.lifetime -= game.dt;
+            if (this.lifetime <= 0) this.hp = 0;
+        }
+
+        // SPAWNER LOGIC (Goblin Hut)
+        if(this.isSpawner && this.spawnCard) {
+             this.spawnTimer += game.dt;
+             if(this.spawnTimer > this.spawnRate) {
+                 this.spawnTimer = 0;
+                 let spawnStats = CARDS[this.spawnCard];
+                 for(let i=0; i<this.spawnCount; i++) {
+                     let u = new Entity(this.team, this.spawnCard, this.x + (Math.random()*40-20), this.y + (Math.random()*40-20));
+                     game.applyStats(u, spawnStats);
+                     game.entities.push(u);
+                 }
+             }
+        }
+
+        // If stunned or thrown, skip all action and movement logic
+        if (this.stunTimer > 0) {
+            this.target = null;
+            this.animOffset = 0;
+            return; 
+        }
+        if (this.isThrown) {
+            this.throwProgress += game.dt * 1.0; 
+            if (this.throwProgress >= 1) {
+                this.isThrown = false;
+                this.x = this.throwDestX;
+                this.y = this.throwDestY;
+            } else {
+                this.x = this.throwStartX + (this.throwDestX - this.throwStartX) * this.throwProgress;
+                this.y = this.throwStartY + (this.throwDestY - this.throwStartY) * this.throwProgress;
+            }
+            return; 
+        }
+        
         // LEON THROW LOGIC - ON ATTACK
         if (this.sprite === 'leon' && this.throwCooldown <= 0 && this.target && !this.target.isBuilding && !this.target.isFlying) {
              let dist = Math.hypot(this.target.x - this.x, this.target.y - this.y);
@@ -802,35 +1088,8 @@ class Entity {
                  this.target.throwProgress = 0;
                  this.throwCooldown = 4.0;
                  this.lastAttack = game.t;
-                 return; // Consumes attack
+                 return; 
              }
-        }
-
-        // THROWN UNIT LOGIC
-        if (this.isThrown) {
-            this.throwProgress += game.dt * 1.0; 
-            if (this.throwProgress >= 1) {
-                this.isThrown = false;
-                this.x = this.throwDestX;
-                this.y = this.throwDestY;
-            } else {
-                this.x = this.throwStartX + (this.throwDestX - this.throwStartX) * this.throwProgress;
-                this.y = this.throwStartY + (this.throwDestY - this.throwStartY) * this.throwProgress;
-            }
-            return; 
-        }
-
-        if(this.spawner) {
-            this.spawnTimer += game.dt;
-            if(this.spawnTimer > 7.0) {
-                this.spawnTimer = 0;
-                for(let i=0; i<3; i++) {
-                    let s = new Entity(this.team, 'skeleton', this.x + (Math.random()*40-20), this.y + (Math.random()*40-20));
-                    s.maxHp = 81; s.hp = 81; s.dmg = 81; s.spd = 80; s.hitSpeed = 1.0; s.radius = 10; s.sprite = 'skeletons';
-                    s.canTargetAir = false;
-                    game.entities.push(s);
-                }
-            }
         }
 
         if(this.isKing && !this.active) { this.target = null; return; }
@@ -893,7 +1152,15 @@ class Entity {
                         if(this.sprite === 'icewizard') pType = 'ice';
                         if(this.sprite === 'wizard') pType = 'magic';
                         if(this.sprite === 'firecracker') pType = 'rocket';
-                        game.projectiles.push(new Projectile(this.x, this.y, this.target, pType, this.team, this.splash, this.splashRadius, this.slows, this.shrapnel));
+                        if (this.isBuilding && this.sprite === 'bombtower') pType = 'bomb';
+
+                        // Set damage for the projectile before firing
+                        let dmg = this.dmg;
+                        
+                        let p = new Projectile(this.x, this.y, this.target, pType, this.team, this.splash, this.splashRadius, this.slows, this.shrapnel);
+                        p.damage = dmg; 
+
+                        game.projectiles.push(p);
                     } else {
                         let dmg = this.dmg;
                         if (this.charge && this.chargeTimer > 2.0) dmg *= 2; 
@@ -916,54 +1183,51 @@ class Entity {
                 }
 
                 if (!this.isBuilding) {
-                    let moveTarget = {x: this.target.x, y: this.target.y};
-                    if (!this.isFlying) {
-                        let riverY = CONSTANTS.RIVER_Y;
-                        let onBottom = this.y > riverY;
-                        let targetOnBottom = this.target.y > riverY;
-                        if (onBottom !== targetOnBottom) {
-                            let distLeft = Math.abs(this.x - CONSTANTS.LANE_LEFT);
-                            let distRight = Math.abs(this.x - CONSTANTS.LANE_RIGHT);
-                            let bridgeX = distLeft < distRight ? CONSTANTS.LANE_LEFT : CONSTANTS.LANE_RIGHT;
-                            
-                            if (Math.abs(this.x - bridgeX) > 15) {
-                                moveTarget.x = bridgeX;
-                                // WALK ON BANK
-                                moveTarget.y = this.y > riverY ? riverY + 50 : riverY - 50; 
-                            } else {
-                                moveTarget.x = bridgeX;
-                                moveTarget.y = CONSTANTS.BRIDGE_Y; 
-                            }
-                        }
-                    }
-                    let mdx = moveTarget.x - this.x;
-                    let mdy = moveTarget.y - this.y;
-                    let angle = Math.atan2(mdy, mdx);
-                    this.x += Math.cos(angle) * currentSpd * game.dt;
-                    this.y += Math.sin(angle) * currentSpd * game.dt;
-                    this.animOffset += 0.2; 
+                     let moveTarget = {x: this.target.x, y: this.target.y};
+                     if (!this.isFlying) {
+                         let riverY = CONSTANTS.RIVER_Y;
+                         let onBottom = this.y > riverY;
+                         let targetOnBottom = this.target.y > riverY;
+                         if (onBottom !== targetOnBottom) {
+                             let distLeft = Math.abs(this.x - CONSTANTS.LANE_LEFT);
+                             let distRight = Math.abs(this.x - CONSTANTS.LANE_RIGHT);
+                             let bridgeX = distLeft < distRight ? CONSTANTS.LANE_LEFT : CONSTANTS.LANE_RIGHT;
+                             
+                             if (Math.abs(this.x - bridgeX) > 15) {
+                                 moveTarget.x = bridgeX;
+                                 moveTarget.y = this.y > riverY ? riverY + 50 : riverY - 50; 
+                             } else {
+                                 moveTarget.x = bridgeX;
+                                 moveTarget.y = CONSTANTS.BRIDGE_Y; 
+                             }
+                         }
+                     }
+                     let mdx = moveTarget.x - this.x;
+                     let mdy = moveTarget.y - this.y;
+                     let angle = Math.atan2(mdy, mdx);
+                     this.x += Math.cos(angle) * currentSpd * game.dt;
+                     this.y += Math.sin(angle) * currentSpd * game.dt;
+                     this.animOffset += 0.2; 
                 }
             }
         } else {
-            // MOVEMENT LOGIC
             if(!this.isBuilding) {
                  let forwardY = this.team === 'blue' ? 0 : 960;
                  if (Math.abs(this.y - forwardY) > 10) {
-                     // BRIDGE CHECK FOR FORWARD MOVEMENT
-                     if (!this.isFlying && (this.y > 350 && this.y < 450)) {
-                          let distLeft = Math.abs(this.x - CONSTANTS.LANE_LEFT);
-                          let distRight = Math.abs(this.x - CONSTANTS.LANE_RIGHT);
-                          let bridgeX = distLeft < distRight ? CONSTANTS.LANE_LEFT : CONSTANTS.LANE_RIGHT;
-                          
-                          if (Math.abs(this.x - bridgeX) > 15) {
-                              let dir = bridgeX > this.x ? 1 : -1;
-                              this.x += dir * currentSpd * game.dt;
-                          } else {
-                              this.y += (this.team==='blue'?-1:1) * currentSpd * game.dt;
-                          }
-                     } else {
-                          this.y += (this.team==='blue'?-1:1) * currentSpd * game.dt;
-                     }
+                      if (!this.isFlying && (this.y > 350 && this.y < 450)) {
+                           let distLeft = Math.abs(this.x - CONSTANTS.LANE_LEFT);
+                           let distRight = Math.abs(this.x - CONSTANTS.LANE_RIGHT);
+                           let bridgeX = distLeft < distRight ? CONSTANTS.LANE_LEFT : CONSTANTS.LANE_RIGHT;
+                           
+                           if (Math.abs(this.x - bridgeX) > 15) {
+                               let dir = bridgeX > this.x ? 1 : -1;
+                               this.x += dir * currentSpd * game.dt;
+                           } else {
+                               this.y += (this.team==='blue'?-1:1) * currentSpd * game.dt;
+                           }
+                      } else {
+                           this.y += (this.team==='blue'?-1:1) * currentSpd * game.dt;
+                      }
                  }
             }
         }
@@ -972,9 +1236,21 @@ class Entity {
     findBestTarget(entities) {
         let min = Infinity;
         let c = null;
+        let isTankBuster = this.targetPref === 'building';
+        
         entities.forEach(e => {
             if(e.team === this.team) return;
-            if(this.targetPref === 'building' && !e.isBuilding) return;
+            if(e.type === 'effect') return;
+
+            if (isTankBuster) {
+                 if (!e.isBuilding) {
+                     let d = Math.hypot(e.x - this.x, e.y - this.y);
+                     if (d > 2 * TILE) return; 
+                 }
+            } else if (this.targetPref === 'ground' && e.isFlying) {
+                return;
+            }
+
             if (e.isFlying && !this.canTargetAir) return;
             
             let d = Math.hypot(e.x - this.x, e.y - this.y);
@@ -995,24 +1271,33 @@ class Entity {
         if (!img) return; 
 
         let w = this.radius * 2.5; let h = this.radius * 2.5;
-        let bob = this.isBuilding ? 0 : Math.sin(this.animOffset) * 2;
+        let bob = this.isBuilding || this.stunTimer > 0 ? 0 : Math.sin(this.animOffset) * 2; 
 
         if (this.isThrown) bob -= Math.sin(this.throwProgress * Math.PI) * 100; 
 
         ctx.save();
         if (this.slowTimer > 0) ctx.filter = 'hue-rotate(180deg) brightness(1.2)'; 
         if (this.isCharging) ctx.filter = 'sepia(1) saturate(5)'; 
+        if (this.stunTimer > 0) ctx.globalAlpha = 0.5; 
 
         ctx.fillStyle = this.team === 'blue' ? '#36f' : '#f33';
-        if(this.isBuilding) {
+        if(this.isBuilding && !this.isKing) {
+            ctx.drawImage(SPRITES['building'], this.x - w/2, this.y - h/1.2, w, h);
+        } else if (this.isBuilding && this.isKing) {
              ctx.fillRect(this.x-10, this.y-50, 20, 20); 
              if(this.isKing && !this.active) {
-                ctx.fillStyle = '#fff'; ctx.font = 'bold 20px Arial'; ctx.fillText('Zzz', this.x - 15, this.y - 60);
+               ctx.fillStyle = '#fff'; ctx.font = 'bold 20px Arial'; ctx.fillText('Zzz', this.x - 15, this.y - 60);
              }
         } else {
              ctx.beginPath(); ctx.arc(this.x, this.y-10+bob, 15, 0, 6.28); ctx.fill();
         }
-        ctx.drawImage(img, this.x - w/2, this.y - h/1.2 + bob, w, h);
+
+        if (this.isBuilding && !this.isKing) {
+             w = 60; h = 60;
+             ctx.drawImage(img, this.x - w/2, this.y - h*1.1, w, h);
+        } else {
+             ctx.drawImage(img, this.x - w/2, this.y - h/1.2 + bob, w, h);
+        }
         
         if(!this.isBuilding && CARDS[this.sprite]) {
             let name = CARDS[this.sprite].name;
@@ -1025,11 +1310,19 @@ class Entity {
         ctx.restore();
 
         // HP BAR
-        let pct = Math.max(0, this.hp / this.maxHp);
-        let barY = this.y - h - 15;
-        
-        ctx.fillStyle = '#333'; ctx.fillRect(this.x - 20, barY, 40, 6);
-        ctx.fillStyle = this.team === 'blue' ? '#6f6' : '#f66'; ctx.fillRect(this.x - 20, barY, 40 * pct, 6);
+        if (this.type !== 'effect') {
+            let pct = Math.max(0, this.hp / this.maxHp);
+            let barY = this.y - (this.isBuilding ? 55 : h) - 15;
+            
+            ctx.fillStyle = '#333'; ctx.fillRect(this.x - 20, barY, 40, 6);
+            ctx.fillStyle = this.team === 'blue' ? '#6f6' : '#f66'; ctx.fillRect(this.x - 20, barY, 40 * pct, 6);
+
+            if (this.isBuilding && !this.isKing && this.lifetime > 0) {
+                ctx.fillStyle = '#333'; ctx.fillRect(this.x - 20, barY + 7, 40, 3);
+                let lifePct = this.lifetime / CARDS[this.sprite].lifetime;
+                ctx.fillStyle = 'lightblue'; ctx.fillRect(this.x - 20, barY + 7, 40 * lifePct, 3);
+            }
+        }
     }
 }
 
@@ -1044,7 +1337,10 @@ class Projectile {
         this.slows = slows || false;
         this.shrapnel = shrapnel || false;
         this.vx = 0; this.vy = 0; 
-        this.targetPos = null; // For barrel
+        this.targetPos = null; 
+        this.damage = 70; 
+        this.stunDuration = 0; 
+        this.cardKey = null; 
     }
     
     update(game) {
@@ -1062,32 +1358,43 @@ class Projectile {
             return;
         }
 
-        // BARREL LOGIC
-        if (this.type === 'barrel') {
+        // BUILDING DEPLOYMENT PROJECTILE LOGIC (triggers placement freeze)
+        if (this.type === 'building_deploy') {
+            let dx = this.targetPos.x - this.x;
+            let dy = this.targetPos.y - this.y;
+            let dist = Math.hypot(dx, dy);
+
+            if (dist < 10) {
+                 this.active = false;
+                 game.placeBuilding(this.cardKey, this.targetPos.x, this.targetPos.y, this.team);
+                 return;
+            }
+            
+            let speed = this.speed;
+            this.x += (dx/dist) * speed * game.dt;
+            this.y += (dy/dist) * speed * game.dt;
+            return;
+        }
+
+        // SPELL PROJECTILE LOGIC (Goblin Barrel & Rocket)
+        if (this.targetPos && !this.target) {
              let dx = this.targetPos.x - this.x;
              let dy = this.targetPos.y - this.y;
              let dist = Math.hypot(dx, dy);
              
              if (dist < 10) {
                  this.active = false;
-                 // Spawn Goblins
-                 for(let i=0; i<3; i++) {
-                     // Spread around impact
-                     let ox = Math.cos(i*2.09) * 20;
-                     let oy = Math.sin(i*2.09) * 20;
-                     let u = new Entity(this.team, 'goblins', this.x + ox, this.y + oy);
-                     u.maxHp = 202; u.hp = 202; u.dmg = 120; u.spd = 100; u.hitSpeed = 1.1; u.range = 0.8*TILE; u.sightRange = 5.5*TILE; u.sprite='goblins'; u.canTargetAir = false;
-                     game.entities.push(u);
-                 }
+                 game.createSpellEffect(this, this.targetPos.x, this.targetPos.y); 
                  return;
              }
-
-             let speed = 400;
+             
+             let speed = this.speed;
              this.x += (dx/dist) * speed * game.dt;
              this.y += (dy/dist) * speed * game.dt;
              return;
         }
 
+        // STANDARD TROOP/BUILDING PROJECTILE LOGIC
         if(!this.target || this.target.hp <= 0) { this.active = false; return; }
         let dx = this.target.x - this.x; let dy = this.target.y - this.y;
         
@@ -1095,15 +1402,21 @@ class Projectile {
             this.active = false;
             
             if (this.splash) {
+                 // Damage is based on the projectile's stored damage or the source card's damage if available
+                 let baseDmg = this.damage || 70;
+
                  game.entities.forEach(ent => {
                      if (ent.team !== this.team && Math.hypot(ent.x - this.x, ent.y - this.y) < this.radius + ent.radius) {
-                         ent.hp -= (this.target === ent ? 0 : 70); 
-                         if (ent === this.target) ent.hp -= 70; 
-                         if (this.slows) ent.slowTimer = 2.0;
+                         ent.hp -= baseDmg; 
                      }
                  });
+                 // Trigger visual effect for splash
+                 if (this.type === 'bomb') {
+                    game.createSpellEffect(this, this.target.x, this.target.y); 
+                 }
+
             } else {
-                 this.target.hp -= 70;
+                 this.target.hp -= this.damage;
                  if (this.slows) this.target.slowTimer = 2.0;
             }
 
@@ -1130,9 +1443,15 @@ class Projectile {
         else if (this.type === 'bomb') { ctx.beginPath(); ctx.arc(this.x, this.y, 6, 0, 6.28); ctx.fillStyle = '#333'; ctx.fill(); } 
         else if (this.type === 'magic') { ctx.beginPath(); ctx.arc(this.x, this.y, 6, 0, 6.28); ctx.fillStyle = '#f0f'; ctx.fill(); } 
         else if (this.type === 'ice') { ctx.beginPath(); ctx.arc(this.x, this.y, 6, 0, 6.28); ctx.fillStyle = '#0ff'; ctx.fill(); } 
-        else if (this.type === 'rocket') { ctx.fillStyle = 'orange'; ctx.fillRect(this.x-3, this.y-3, 6, 15); } 
+        else if (this.type === 'rocket') { ctx.drawImage(SPRITES['rocket'], this.x-10, this.y-10, 20, 40); }
         else if (this.type === 'shrapnel') { ctx.fillStyle = '#fa0'; ctx.fillRect(this.x-2, this.y-2, 4, 4); }
-        else if (this.type === 'barrel') { ctx.drawImage(SPRITES['goblinbarrel'], this.x-10, this.y-10, 20, 30); }
+        else if (this.type === 'goblinbarrel') { ctx.drawImage(SPRITES['goblinbarrel'], this.x-10, this.y-10, 20, 30); }
+        else if (this.type === 'building_deploy') {
+             ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+             ctx.beginPath();
+             ctx.arc(this.x, this.y, 5, 0, 2 * Math.PI); 
+             ctx.fill();
+        }
     }
 }
 
