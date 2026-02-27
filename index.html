@@ -583,6 +583,9 @@ const CARDS = {
     // SPELLS
     fireball: { name: "Fireball", cost: 4, rarity: 'rare', type: 'spell', dmg: 700, radius: 2.5 * TILE, sprite: 'fireball', globalDeploy: true },
     zap: { name: "Zap", cost: 2, rarity: 'common', type: 'spell', dmg: 200, radius: 2.0 * TILE, stunDuration: 0.5, sprite: 'zap', globalDeploy: true },
+    lightning: { name: "Lightning", cost: 6, rarity: 'epic', type: 'spell', dmg: 1000, radius: 3.0 * TILE, stunDuration: 1.0, sprite: 'zap', globalDeploy: true },
+    freeze: { name: "Freeze", cost: 4, rarity: 'rare', type: 'spell', dmg: 0, radius: 3.5 * TILE, stunDuration: 2.5, sprite: 'icewizard', globalDeploy: true },
+    rage: { name: "Rage", cost: 3, rarity: 'common', type: 'spell', dmg: 0, radius: 5.0 * TILE, sprite: 'fireball', globalDeploy: true },
     rocket: { name: "Rocket", cost: 6, rarity: 'epic', type: 'spell', dmg: 1300, radius: 2.0 * TILE, sprite: 'rocket', globalDeploy: true },
     // BUILDINGS
     goblinhut: { name: "Goblin Hut", cost: 5, rarity: 'rare', type: 'building', hp: 1398, dmg: 0, spd: 0, hit: 0, count: 1, targetPref: 'none', sprite: 'goblinhut', rng: 0, sight: 0, targetsAir: false, isBuilding: true, isSpawner: true, spawnRate: 7.0, spawnCard: 'speargoblins', spawnCount: 1, lifetime: 60 },
@@ -747,12 +750,6 @@ function startGame() {
     document.getElementById('end-screen').style.display = 'none';
     resizeGame();
     G = new Game(userDeck, currentDifficulty);
-    
-    // Battle countdown
-    showStatus("3");
-    setTimeout(() => showStatus("2"), 800);
-    setTimeout(() => showStatus("1"), 1600);
-    setTimeout(() => showStatus("FIGHT!"), 2400);
 }
 
 function returnToMenu() {
@@ -2183,15 +2180,6 @@ function renderHand() {
     let dock = document.getElementById('card-dock');
     dock.innerHTML = '';
     if(!G) return;
-    
-    // Next card preview
-    let nextDiv = document.createElement('div');
-    nextDiv.style.cssText = 'position:absolute; left:6px; top:6px; width:40px; height:50px; border-radius:6px; background:#333; border:2px solid #555; display:flex; flex-direction:column; align-items:center; justify-content:center; overflow:hidden; opacity:0.8; z-index:200;';
-    let nextKey = G.queue[0];
-    if(nextKey && CARDS[nextKey]) {
-        nextDiv.innerHTML = `<img src="${SPRITES[CARDS[nextKey].sprite].src}" style="width:32px;height:32px;object-fit:contain;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.5));"><div style="font-size:6px;color:#aaa;font-weight:bold;margin-top:2px;">NEXT</div>`;
-    }
-    dock.appendChild(nextDiv);
     
     G.hand.forEach((k, i) => {
         let div = document.createElement('div');
